@@ -50,12 +50,17 @@
             <Font name="Times New Roman Bold" size="30.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="10.0" layoutY="266.0" onAction="#UserBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 10; -fx-background-radius: 12;" text="Users">
+      <JFXButton buttonType="RAISED" layoutX="10.0" layoutY="264.0" onAction="#UserBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 10; -fx-background-radius: 12;" text="Users">
          <font>
             <Font name="Times New Roman Bold" size="30.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="9.0" layoutY="357.0" onAction="#programBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 10; -fx-background-radius: 12;" text=" Programs">
+      <JFXButton buttonType="RAISED" layoutX="9.0" layoutY="353.0" onAction="#programBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 10; -fx-background-radius: 12;" text=" Programs">
+         <font>
+            <Font name="Times New Roman Bold" size="30.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="7.0" layoutY="444.0" onAction="#TherapistBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 10; -fx-background-radius: 12;" text="Therapists">
          <font>
             <Font name="Times New Roman Bold" size="30.0" />
          </font>

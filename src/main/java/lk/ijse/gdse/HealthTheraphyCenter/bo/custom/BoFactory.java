@@ -3,6 +3,7 @@ package lk.ijse.gdse.HealthTheraphyCenter.bo.custom;
 import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.impl.PatientBOImpl;
 import lk.ijse.gdse.HealthTheraphyCenter.bo.SuperBO;
 import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.impl.ProgramBOImpl;
+import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.impl.TherapistBOImpl;
 
 public class BoFactory {
     public static BoFactory boFactory;
@@ -19,6 +20,7 @@ public class BoFactory {
         return  switch (boTypes){
             case PATIENTS -> (T) new PatientBOImpl();
             case THERAPY_PROGRAMS -> (T) new ProgramBOImpl();
+            case THERAPISTS -> (T) new TherapistBOImpl();
         };
     }
 }

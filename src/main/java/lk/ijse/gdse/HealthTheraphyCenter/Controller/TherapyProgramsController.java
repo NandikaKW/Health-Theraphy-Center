@@ -78,6 +78,7 @@ public class TherapyProgramsController implements Initializable {
                 new Alert(Alert.AlertType.INFORMATION, "Program deleted successfully").show();
                 refreshTable();
                 clearFields();
+                GenerateNextId();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to delete program").show();
             }
@@ -107,9 +108,10 @@ public class TherapyProgramsController implements Initializable {
     }
 
     @FXML
-    void btnRefreshOnAction(ActionEvent event) {
+    void btnRefreshOnAction(ActionEvent event) throws Exception {
         clearFields();
         refreshTable();
+        GenerateNextId();
 
     }
 
@@ -136,6 +138,7 @@ public class TherapyProgramsController implements Initializable {
                 new Alert(Alert.AlertType.INFORMATION, "Program saved successfully").show();
                 refreshTable();
                 clearFields();
+                GenerateNextId();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to save program").show();
             }
@@ -189,12 +192,24 @@ public class TherapyProgramsController implements Initializable {
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         colDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
         colcost.setCellValueFactory(new PropertyValueFactory<>("fee"));
-        refreshPage();
+        try {
+            refreshPage();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
-    private void refreshPage() {
+    private void refreshPage() throws Exception {
         refreshTable();
-        clearFields();
+        GenerateNextId();
+        txtName.clear();
+        txtDescription.clear();
+        txtDuration.clear();
+        txtCost.clear();
+    }
+    private void  GenerateNextId() throws Exception {
+        String nextProgramID = programBO.generateNextTherapyProgramID();
+        txtid.setText(nextProgramID); // Set the next program ID first
     }
 }

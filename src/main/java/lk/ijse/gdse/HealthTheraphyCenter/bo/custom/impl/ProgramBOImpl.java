@@ -106,4 +106,24 @@ public class ProgramBOImpl implements ProgramBO {
     public Optional<String> getLastProgramID() throws Exception {
         return programDAO.getLastPK();
     }
+    @Override
+    public String generateNextTherapyProgramID() {
+        Optional<String> lastTherapyProgramID = programDAO.getLastPK();
+
+        if (lastTherapyProgramID.isPresent()) {
+            String lastID = lastTherapyProgramID.get(); // e.g., "TP005"
+            int numericPart = Integer.parseInt(lastID.substring(2)); // Extract numeric part (005 -> 5)
+            numericPart++; // Increment the numeric part
+            return String.format("TP%03d", numericPart); // Format back to TP001, TP002, etc.
+        } else {
+            return "TP001"; // Default if no therapy programs exist
+        }
+    }
+    @Override
+    public String loadCurrentProgramID() {
+        Optional<String> lastProgramID = programDAO.getLastPK();
+        return lastProgramID.orElse(null); // Return the last existing program ID, or null if none exists
+    }
+
+
 }

@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "therapists")
-public class Therapist {
+public class Therapist implements SuperEntity {
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id; // Primary Key
@@ -30,7 +30,11 @@ public class Therapist {
     private List<TherapySession> therapySessions;
 
 
-
-
-
+    public Therapist(String id, String name, String specialization, String contactInfo, TherapyProgram therapyProgram) {
+        this.id = id;
+        this.name = name;
+        this.specialization = specialization;
+        this.contactInfo = contactInfo;
+        this.therapyProgram = therapyProgram;
+    }
 }

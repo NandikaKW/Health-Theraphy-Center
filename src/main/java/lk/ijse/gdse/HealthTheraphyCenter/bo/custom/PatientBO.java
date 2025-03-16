@@ -13,5 +13,6 @@ public interface PatientBO extends SuperBO {
     List<PatientDTO> getAllPatients() throws Exception;
     Optional<PatientDTO> findPatientByID(String id) throws Exception;
     Optional<String> getLastPatientID() throws Exception;
+    String generateNextPatientID() throws Exception;
 
 }

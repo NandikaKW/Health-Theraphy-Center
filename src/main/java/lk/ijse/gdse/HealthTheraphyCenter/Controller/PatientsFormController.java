@@ -85,6 +85,7 @@ public class PatientsFormController implements Initializable {
                 showSuccessAlert("Patient deleted successfully!");
                 refreshTable();
                 clearFields();
+                GenerateNextPatientID();
             } else {
                 showErrorAlert("Failed to delete patient.");
             }
@@ -95,9 +96,10 @@ public class PatientsFormController implements Initializable {
     }
 
     @FXML
-    void btnRefreshOnAction(ActionEvent event) {
+    void btnRefreshOnAction(ActionEvent event) throws Exception {
         refreshTable();
         clearFields();
+        GenerateNextPatientID();
 
     }
 
@@ -121,6 +123,7 @@ public class PatientsFormController implements Initializable {
                 showSuccessAlert("Patient saved successfully!");
                 refreshTable();
                 clearFields();
+                GenerateNextPatientID();
             } else {
                 showErrorAlert("Failed to save patient.");
             }
@@ -181,22 +184,29 @@ public class PatientsFormController implements Initializable {
         colContact.setCellValueFactory(new PropertyValueFactory<>("contact"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colHistory.setCellValueFactory(new PropertyValueFactory<>("history"));
-        refreshPage();
+        try {
+            refreshPage();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
 
     }
 
-    private void refreshPage() {
+    private void refreshPage() throws Exception {
         refreshTable();
+        String nextPatientID=patientBO.generateNextPatientID();
+        txtID.setText(nextPatientID);
+
         txtContact.setText("");
         txtEmail.setText("");
         txtHistory.setText("");
-        txtID.setText("");
+//        txtID.setText("");
         txtName.setText("");
 
     }
 
-    private void refreshTable() {
+    private void refreshTable() throws Exception {
         try {
             List<PatientDTO> allPatients = patientBO.getAllPatients();
             ObservableList<PatientTM> patientList = FXCollections.observableArrayList(
@@ -212,6 +222,7 @@ public class PatientsFormController implements Initializable {
         } catch (Exception e) {
             showErrorAlert("Error loading patients: " + e.getMessage());
         }
+
 
 
     }
@@ -250,5 +261,9 @@ public class PatientsFormController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+    private void GenerateNextPatientID() throws Exception {
+        String nextPatientID = patientBO.generateNextPatientID();
+        txtID.setText(nextPatientID);
     }
 }

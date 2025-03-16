@@ -100,4 +100,18 @@ public class PatientBOImpl implements PatientBO {
         alert.setContentText(message);
         alert.showAndWait();
     }
+    @Override
+    public String generateNextPatientID() {
+        Optional<String> lastPatientID = patientDAO.getLastPK();
+
+        if (lastPatientID.isPresent()) {
+            String lastID = lastPatientID.get();
+            int numericPart = Integer.parseInt(lastID.substring(1)); // Extract numeric part
+            numericPart++; // Increment the numeric part
+            return String.format("P%03d", numericPart); // Format back to P001, P002, etc.
+        } else {
+            return "P001"; // Default if no patients exist
+        }
+    }
+
 }

@@ -14,5 +14,7 @@ public interface ProgramBO extends SuperBO {
     List<ProgramDTO> getAllPrograms() throws Exception;
     Optional<ProgramDTO> findProgramByID(String id) throws Exception;
     Optional<String> getLastProgramID() throws Exception;
+    String generateNextTherapyProgramID() throws Exception;
+    String loadCurrentProgramID() throws Exception;
 
 }

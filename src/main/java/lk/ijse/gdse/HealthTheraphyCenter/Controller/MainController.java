@@ -78,4 +78,12 @@ public class MainController {
 
     }
 
+    @FXML
+    void TherapistBtnOnAction(ActionEvent event) throws IOException {
+        Node node = (Node) FXMLLoader.load(getClass().getResource("/View/Therapists.fxml"));
+        CommonAnchore.getChildren().clear();
+        CommonAnchore.getChildren().setAll(node);
+
+    }
+
 }

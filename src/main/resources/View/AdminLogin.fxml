@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="523.0" prefWidth="497.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.HealthTheraphyCenter.Controller.AdminLoginController">
+   <children>
+      <Label layoutX="142.0" layoutY="41.0" text="Admin Only">
+         <font>
+            <Font name="Times New Roman Bold" size="40.0" />
+         </font>
+      </Label>
+      <TextField fx:id="Name" layoutX="93.0" layoutY="140.0" prefHeight="46.0" prefWidth="310.0" promptText="Enter Your Admin Name">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </TextField>
+      <PasswordField fx:id="Code" layoutX="93.0" layoutY="223.0" prefHeight="46.0" prefWidth="310.0" promptText="Enter Your Password">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </PasswordField>
+      <JFXButton buttonType="RAISED" layoutX="166.0" layoutY="326.0" onAction="#loginBtnOnAction" prefHeight="86.0" prefWidth="163.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 12; -fx-border-radius: 10;" text="Login">
+         <font>
+            <Font name="Times New Roman Bold" size="38.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

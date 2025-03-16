@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="811.0" prefWidth="1194.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.HealthTheraphyCenter.Controller.UsersFormController">
+   <children>
+      <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="106.0" prefWidth="481.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 12; -fx-border-radius: 10;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
+         <children>
+            <Label layoutX="111.0" layoutY="24.0" text="User Details">
+               <font>
+                  <Font name="Times New Roman Bold" size="50.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <TableView fx:id="tblUser" layoutX="34.0" layoutY="187.0" prefHeight="517.0" prefWidth="1145.0">
+        <columns>
+          <TableColumn fx:id="IDColumn" prefWidth="234.39998626708984" text="User ID" />
+          <TableColumn fx:id="NameColumn" prefWidth="257.6000061035156" text="User Name" />
+            <TableColumn fx:id="EmailColumn" prefWidth="452.800048828125" text="Email" />
+            <TableColumn fx:id="Actioncolumn" prefWidth="206.39990234375" text="Action" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

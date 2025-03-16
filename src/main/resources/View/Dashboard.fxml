@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="811.0" prefWidth="1194.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.HealthTheraphyCenter.Controller.DashboardController">
+   <children>
+      <AnchorPane layoutX="191.0" layoutY="22.0" prefHeight="150.0" prefWidth="783.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 15; -fx-border-radius: 12;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
+         <children>
+            <Label layoutX="26.0" layoutY="29.0" prefHeight="62.0" prefWidth="732.0" text="Welcome to Serenity Mental Health Therapy Center">
+               <font>
+                  <Font name="Times New Roman Bold" size="32.0" />
+               </font>
+            </Label>
+            <Label fx:id="NameLabel" layoutX="321.0" layoutY="91.0" text="Nandika">
+               <font>
+                  <Font name="Times New Roman Bold" size="38.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="108.0" layoutY="260.0" prefHeight="214.0" prefWidth="270.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 15; -fx-border-radius: 12;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
+         <children>
+            <Label layoutX="2.0" layoutY="38.0" text="Thearpy Programes ">
+               <font>
+                  <Font name="Times New Roman Bold" size="30.0" />
+               </font>
+            </Label>
+            <Label fx:id="ProgramCount" layoutX="120.0" layoutY="89.0" text="5" textAlignment="RIGHT">
+               <font>
+                  <Font name="Times New Roman Bold" size="57.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="718.0" layoutY="259.0" prefHeight="214.0" prefWidth="270.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 15; -fx-border-radius: 12;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
+         <children>
+            <Label layoutX="62.0" layoutY="34.0" text="User Count">
+               <font>
+                  <Font name="Times New Roman Bold" size="30.0" />
+               </font>
+            </Label>
+            <Label fx:id="UserCount" layoutX="129.0" layoutY="87.0" text="5" textAlignment="RIGHT">
+               <font>
+                  <Font name="Times New Roman Bold" size="57.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

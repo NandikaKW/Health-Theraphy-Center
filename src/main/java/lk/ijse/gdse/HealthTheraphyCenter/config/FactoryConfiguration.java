@@ -1,0 +1,37 @@
+package lk.ijse.gdse.HealthTheraphyCenter.config;
+
+import lk.ijse.gdse.HealthTheraphyCenter.Entity.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+public class FactoryConfiguration {
+    private static FactoryConfiguration factoryConfiguration;
+    private final SessionFactory sessionFactory;
+
+    private FactoryConfiguration() {
+        Configuration configuration = new Configuration();
+        configuration.configure();
+        configuration.addAnnotatedClass(Patient.class)
+                .addAnnotatedClass(PatientProgramDetail.class)
+                .addAnnotatedClass(Payment.class)
+                .addAnnotatedClass(Therapist.class)
+                .addAnnotatedClass(TherapyProgram.class)
+                .addAnnotatedClass(TherapySession.class)
+                .addAnnotatedClass(User.class)
+
+
+        ;
+        sessionFactory = configuration.buildSessionFactory();
+    }
+
+    public static FactoryConfiguration getInstance() {
+        return (factoryConfiguration == null) ?
+                factoryConfiguration =
+                        new FactoryConfiguration() : factoryConfiguration;
+    }
+
+    public Session getSession() {
+        return sessionFactory.openSession();
+    }
+}

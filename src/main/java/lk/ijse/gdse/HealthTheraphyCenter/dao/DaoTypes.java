@@ -1,5 +1,5 @@
 package lk.ijse.gdse.HealthTheraphyCenter.dao;
 
 public enum DaoTypes {
-    PATIENT
+    PATIENT,THERAPHY_PROGRAM
 }

@@ -1,6 +1,7 @@
 package lk.ijse.gdse.HealthTheraphyCenter.dao;
 
 import lk.ijse.gdse.HealthTheraphyCenter.dao.custom.impl.PatientDAOImpl;
+import lk.ijse.gdse.HealthTheraphyCenter.dao.custom.impl.ProgramDAOImpl;
 
 public class DaoFactory {
     private static DaoFactory daoFactory;
@@ -19,6 +20,7 @@ public class DaoFactory {
         return switch (daoTypes) {
             case PATIENT -> (T) new PatientDAOImpl();
 
+            case THERAPHY_PROGRAM -> (T) new ProgramDAOImpl();
         };
     }
 }

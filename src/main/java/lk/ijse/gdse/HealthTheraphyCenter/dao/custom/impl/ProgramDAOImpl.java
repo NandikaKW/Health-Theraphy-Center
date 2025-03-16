@@ -2,35 +2,37 @@ package lk.ijse.gdse.HealthTheraphyCenter.dao.custom.impl;
 
 import javafx.scene.control.Alert;
 import lk.ijse.gdse.HealthTheraphyCenter.Entity.Patient;
+import lk.ijse.gdse.HealthTheraphyCenter.Entity.TherapyProgram;
 import lk.ijse.gdse.HealthTheraphyCenter.config.FactoryConfiguration;
-import lk.ijse.gdse.HealthTheraphyCenter.dao.custom.PatientDAO;
+import lk.ijse.gdse.HealthTheraphyCenter.dao.custom.ProgramDAO;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class PatientDAOImpl implements PatientDAO {
+public class ProgramDAOImpl implements ProgramDAO {
     private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
     @Override
-    public boolean save(Patient patient) {
+    public boolean save(TherapyProgram therapyProgram) {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
         try {
             // C001
             // C001
-            Patient existsPatient = session.get(Patient.class, patient.getId());
+            Patient existsPatient = session.get(Patient.class, therapyProgram.getId());
             if (existsPatient != null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText("Duplicate ID");
-                alert.setContentText("Patient with ID " + patient.getId() + " already exists.");
+                alert.setContentText("Program with ID " + therapyProgram.getId() + " already exists.");
                 alert.showAndWait();
                 return false;
             }
 
-            session.persist(patient);
+            session.persist(therapyProgram);
             transaction.commit();
             return true;
         } catch (Exception e) {
@@ -44,12 +46,12 @@ public class PatientDAOImpl implements PatientDAO {
     }
 
     @Override
-    public boolean update(Patient patient) {
+    public boolean update(TherapyProgram therapyProgram) {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
         try {
-            System.out.println(patient);
-            session.update(patient);
+            System.out.println(therapyProgram);
+            session.update(therapyProgram);
             transaction.commit();
             return true;
         } catch (Exception e) {
@@ -67,19 +69,19 @@ public class PatientDAOImpl implements PatientDAO {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
         try {
-            Patient patient = session.get(Patient.class, pk);
-            if (patient == null) {
+            TherapyProgram program = session.get(TherapyProgram.class, pk);
+            if (program == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
-                alert.setHeaderText("Customer not found");
-                alert.setContentText("Customer with ID " + pk + " not found.");
+                alert.setHeaderText("Program not found");
+                alert.setContentText("Program with ID " + pk + " not found.");
                 alert.showAndWait();
                 return false;
             }
             // customer have order
             // In use
 
-            session.remove(patient);
+            session.remove(program);
             transaction.commit();
             return true;
         } catch (Exception e) {
@@ -93,32 +95,37 @@ public class PatientDAOImpl implements PatientDAO {
     }
 
     @Override
-    public List<Patient> getAll() {
-        Session session = factoryConfiguration.getSession();
-        Query<Patient> query = session.createQuery("FROM Patient", Patient.class);
-        return query.list();
+    public List<TherapyProgram> getAll() {
+        try (Session session = factoryConfiguration.getSession()) {
+            Query<TherapyProgram> query = session.createQuery("FROM TherapyProgram", TherapyProgram.class);
+            return query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList(); // Return an empty list if something goes wrong
+        }
     }
 
     @Override
-    public Optional<Patient> findByPK(String pk) {
+    public Optional<TherapyProgram> findByPK(String pk) {
         Session session = factoryConfiguration.getSession();
-        Patient patient = session.get(Patient.class, pk);
+        TherapyProgram program = session.get(TherapyProgram.class, pk);
         session.close();
-        if (patient == null) {
+        if (program == null) {
             return Optional.empty();
         }
-        return Optional.of(patient);
+        return Optional.of(program);
     }
 
     @Override
     public Optional<String> getLastPK() {
-        Session session = factoryConfiguration.getSession();
-
-        String lastPk = session
-                .createQuery("SELECT p.id FROM Patient p ORDER BY p.id DESC", String.class)
-                .setMaxResults(1)
-                .uniqueResult();
-
-        return Optional.ofNullable(lastPk);
+        try (Session session = factoryConfiguration.getSession()) {
+            String lastPk = session.createQuery("SELECT t.id FROM TherapyProgram t ORDER BY t.id DESC", String.class)
+                    .setMaxResults(1)
+                    .uniqueResult();
+            return Optional.ofNullable(lastPk);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Optional.empty(); // Handle the exception as needed
+        }
     }
 }

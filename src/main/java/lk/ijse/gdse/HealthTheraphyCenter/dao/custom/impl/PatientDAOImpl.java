@@ -71,8 +71,8 @@ public class PatientDAOImpl implements PatientDAO {
             if (patient == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
-                alert.setHeaderText("Customer not found");
-                alert.setContentText("Customer with ID " + pk + " not found.");
+                alert.setHeaderText("Patient not found");
+                alert.setContentText("Patient with ID " + pk + " not found.");
                 alert.showAndWait();
                 return false;
             }

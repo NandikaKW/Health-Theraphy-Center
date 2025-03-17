@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements SuperEntity {
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;

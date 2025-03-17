@@ -1,5 +1,5 @@
 package lk.ijse.gdse.HealthTheraphyCenter.bo.custom;
 
 public enum BoTypes {
-    PATIENTS,THERAPY_PROGRAMS,THERAPISTS
+    PATIENTS,THERAPY_PROGRAMS,THERAPISTS,USER
 }

@@ -3,6 +3,7 @@ package lk.ijse.gdse.HealthTheraphyCenter.dao;
 import lk.ijse.gdse.HealthTheraphyCenter.dao.custom.impl.PatientDAOImpl;
 import lk.ijse.gdse.HealthTheraphyCenter.dao.custom.impl.ProgramDAOImpl;
 import lk.ijse.gdse.HealthTheraphyCenter.dao.custom.impl.TherapistDAOImpl;
+import lk.ijse.gdse.HealthTheraphyCenter.dao.custom.impl.UserDAOImpl;
 
 public class DaoFactory {
     private static DaoFactory daoFactory;
@@ -22,6 +23,7 @@ public class DaoFactory {
             case PATIENT -> (T) new PatientDAOImpl();
             case THERAPHY_PROGRAM -> (T) new ProgramDAOImpl();
             case THERAPIST -> (T) new TherapistDAOImpl();
+            case USER -> (T) new UserDAOImpl();
         };
     }
 }

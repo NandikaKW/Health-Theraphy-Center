@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
@@ -23,52 +24,58 @@ public class AdminLoginController {
 
     @FXML
     private TextField Name;
-    String UserName="Nandika";
-    String code="1234";
-
+    private final String UserName = "Nandika";
+    private final String Password = "1234";
     @FXML
     void loginBtnOnAction(ActionEvent event) throws IOException {
-        if(UserName.equals(Name.getText())){
-            if(code.equals(Code.getText())){
-                createdashboard();}
-            else {
-                ImageView imageView = new ImageView(new Image("/Asset/icons8-close-100.png"));
-                Notifications.create()
-                        .graphic(imageView)
-                        .text("Error: Incorrect password.")
-                        .title("WARNING")
-                        .hideAfter(Duration.seconds(5))
-                        .position(Pos.TOP_RIGHT)
-                        .darkStyle()
-                        .show();
+        String enteredUsername = Name.getText();
+        String enteredPassword = Code.getText();
+
+        if (UserName.equals(enteredUsername)) {
+            if (Password.equals(enteredPassword)) {
+                clearFields();
+                createdashboard(event); // Pass event to close login window properly
+            } else {
+                showErrorNotification("Error: Incorrect password.");
             }
-
+        } else {
+            showErrorNotification("Error: Username not found or incorrect.");
         }
-        else {
-            ImageView imageView = new ImageView(new Image("/Asset/icons8-close-100.png"));
-            Notifications.create()
-                    .graphic(imageView)
-                    .text("Error: Username not found or incorrect. ")
-                    .title("WARNING")
-                    .hideAfter(Duration.seconds(5))
-                    .position(Pos.TOP_RIGHT)
-                    .darkStyle()
-                    .show();
-        }
-
     }
 
-    private void createdashboard() throws IOException {
+    private void clearFields() {
+        Name.clear();
+        Code.clear();
+    }
+
+    private void createdashboard(ActionEvent event) throws IOException {
+        // Load the main dashboard
         Parent rootNode = FXMLLoader.load(getClass().getResource("/View/main.fxml"));
         Scene scene = new Scene(rootNode);
-        Stage stage = new Stage();
-        stage.setTitle("Main");
-        stage.setFullScreen(true);
-        stage.centerOnScreen();
-        stage.setResizable(true);
-        stage.setScene(scene);
-        stage.show();
 
+        // Get the current stage from the event and close it
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+
+        // Open the new stage
+        Stage newStage = new Stage();
+        newStage.setTitle("Main Dashboard");
+        newStage.setFullScreen(true);
+        newStage.centerOnScreen();
+        newStage.setResizable(true);
+        newStage.setScene(scene);
+        newStage.show();
+    }
+    private void showErrorNotification(String message) {
+        ImageView imageView = new ImageView(new Image("/Asset/icons8-close-100.png"));
+        Notifications.create()
+                .graphic(imageView)
+                .text(message)
+                .title("WARNING")
+                .hideAfter(Duration.seconds(5))
+                .position(Pos.TOP_RIGHT)
+                .darkStyle()
+                .show();
     }
 
 }

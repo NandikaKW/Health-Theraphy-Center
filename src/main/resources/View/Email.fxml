@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="428.0" prefWidth="602.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.HealthTheraphyCenter.Controller.EmailController">
+   <children>
+      <Label layoutX="158.0" layoutY="30.0" prefHeight="44.0" prefWidth="259.0" text="Patient Email">
+         <font>
+            <Font name="Times New Roman Bold" size="37.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="58.0" fitWidth="85.0" layoutX="380.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../imges/8717946.gif" />
+         </image>
+      </ImageView>
+      <TextField fx:id="txtSubject" layoutX="104.0" layoutY="94.0" prefHeight="44.0" prefWidth="398.0" promptText="Subject" style="-fx-background-color: white; -fx-border-color: black;">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </TextField>
+      <TextArea fx:id="txtBody" layoutX="104.0" layoutY="151.0" prefHeight="166.0" prefWidth="398.0" promptText="Body" style="-fx-background-color: white; -fx-border-color: black;">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </TextArea>
+      <JFXButton buttonType="RAISED" layoutX="453.0" layoutY="353.0" onAction="#sendUsingGmailOnAction" prefHeight="51.0" prefWidth="116.0" style="-fx-background-color: #FBFBFB;" text="Send">
+         <font>
+            <Font name="Times New Roman Bold" size="25.0" />
+         </font></JFXButton>
+   </children>
+</AnchorPane>

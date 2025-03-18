@@ -5,19 +5,27 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.BoFactory;
 import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.BoTypes;
 import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.PatientBO;
 import lk.ijse.gdse.HealthTheraphyCenter.dto.PatientDTO;
 import lk.ijse.gdse.HealthTheraphyCenter.dto.tm.PatientTM;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -66,6 +74,8 @@ public class PatientsFormController implements Initializable {
 
     @FXML
     private TextField txtID;
+    @FXML
+    private JFXButton btnReport;
 
     @FXML
     private TextField txtName;
@@ -266,4 +276,45 @@ public class PatientsFormController implements Initializable {
         String nextPatientID = patientBO.generateNextPatientID();
         txtID.setText(nextPatientID);
     }
+    @FXML
+    void openSendMailModel(ActionEvent event) {
+        PatientTM selectedPatient = tablePatients.getSelectionModel().getSelectedItem();
+
+        if (selectedPatient == null) {
+            new Alert(Alert.AlertType.WARNING, "Please select a patient to send an email.").show();
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Email.fxml"));
+            Parent load = loader.load();
+
+            EmailController emailController = loader.getController();
+            emailController.setCustomerEmail(selectedPatient.getEmail());
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(load));
+            stage.setTitle("Send Email");
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/imges/icons8-open-email-24.png")));
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            Window parentWindow = ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.initOwner(parentWindow);
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to load the email sending interface. Please try again later.").show();
+            e.printStackTrace();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
+            e.printStackTrace();
+        }
+
+    }
+    @FXML
+    void btnReportOnAction(ActionEvent event) {
+
+    }
+
+
 }

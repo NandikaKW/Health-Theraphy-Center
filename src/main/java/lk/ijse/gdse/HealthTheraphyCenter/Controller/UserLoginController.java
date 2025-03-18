@@ -33,6 +33,7 @@ public class UserLoginController {
 
     @FXML
     private AnchorPane UserAnchore;
+    public static String loggedInUserName;
     UserBO userBO = BoFactory.getInstance().getBO(BoTypes.USER);
 
     @FXML
@@ -61,6 +62,9 @@ public class UserLoginController {
             showNotification("Error: Incorrect password.", "/Asset/icons8-close-100.png");
             clearFields();
         } else {
+            // Set the logged-in user's name
+            loggedInUserName = user.getUsername(); // Store the username
+
             // Close the current login window before opening the new one
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.close();

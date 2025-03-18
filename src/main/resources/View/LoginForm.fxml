@@ -2,27 +2,33 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.HealthTheraphyCenter.Controller.LoginFormController">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #8DE5ED;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.HealthTheraphyCenter.Controller.LoginFormController">
    <children>
-      <Label layoutX="47.0" layoutY="28.0" text="Health Therapy Center">
+      <Label layoutX="47.0" layoutY="18.0" text="Health Therapy Center">
          <font>
             <Font name="Times New Roman Bold" size="40.0" />
          </font>
       </Label>
-      <AnchorPane fx:id="loginFuntions" layoutX="488.0" layoutY="62.0" prefHeight="523.0" prefWidth="497.0" />
-      <JFXButton buttonType="RAISED" layoutX="58.0" layoutY="95.0" onAction="#UserBtnOnAction" prefHeight="70.0" prefWidth="143.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 10; -fx-background-radius: 12;" text="user">
+      <AnchorPane fx:id="loginFuntions" layoutX="496.0" prefHeight="600.0" prefWidth="506.0" />
+      <JFXButton buttonType="RAISED" layoutX="58.0" layoutY="76.0" onAction="#UserBtnOnAction" prefHeight="70.0" prefWidth="143.0" style="-fx-background-color: #FBFBFB;" text="user">
          <font>
             <Font name="Times New Roman Bold" size="30.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="247.0" layoutY="95.0" onAction="#AdminBtnOnAction" prefHeight="70.0" prefWidth="143.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 10; -fx-background-radius: 12;" text="Admin">
+      <JFXButton buttonType="RAISED" layoutX="247.0" layoutY="76.0" onAction="#AdminBtnOnAction" prefHeight="70.0" prefWidth="143.0" style="-fx-background-color: #FBFBFB;" text="Admin">
          <font>
             <Font name="Times New Roman Bold" size="30.0" />
          </font>
       </JFXButton>
+      <ImageView fitHeight="367.0" fitWidth="498.0" layoutX="-1.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../imges/812c229c60047ee347f778135cd76b81.gif" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

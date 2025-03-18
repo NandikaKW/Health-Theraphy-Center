@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="811.0" prefWidth="1194.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.HealthTheraphyCenter.Controller.TherapistsFormController">
    <children>
       <AnchorPane layoutX="22.0" layoutY="25.0" prefHeight="84.0" prefWidth="398.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 12; -fx-border-radius: 10;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
@@ -45,11 +44,26 @@
             <Font name="Times New Roman Bold" size="25.0" />
          </font>
       </Label>
-      <TextField fx:id="txtID" layoutX="221.0" layoutY="138.0" prefHeight="38.0" prefWidth="259.0" />
-      <TextField fx:id="txtName" layoutX="221.0" layoutY="192.0" prefHeight="38.0" prefWidth="259.0" />
-      <TextField fx:id="txtSpecialization" layoutX="221.0" layoutY="246.0" prefHeight="38.0" prefWidth="259.0" />
-      <TextField fx:id="txtProgramID" layoutX="735.0" layoutY="138.0" prefHeight="38.0" prefWidth="214.0" />
-      <TextField fx:id="txtContact" layoutX="735.0" layoutY="192.0" prefHeight="38.0" prefWidth="214.0" />
+      <TextField fx:id="txtID" layoutX="221.0" layoutY="138.0" prefHeight="38.0" prefWidth="259.0" promptText="ID">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font></TextField>
+      <TextField fx:id="txtName" layoutX="221.0" layoutY="192.0" prefHeight="38.0" prefWidth="259.0" promptText="Name">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font></TextField>
+      <TextField fx:id="txtSpecialization" layoutX="221.0" layoutY="246.0" prefHeight="38.0" prefWidth="259.0" promptText="Specialization">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font></TextField>
+      <TextField fx:id="txtProgramID" layoutX="735.0" layoutY="138.0" prefHeight="38.0" prefWidth="214.0" promptText="Program ID">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font></TextField>
+      <TextField fx:id="txtContact" layoutX="735.0" layoutY="192.0" prefHeight="38.0" prefWidth="214.0" promptText="Contact ">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font></TextField>
       <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="964.0" layoutY="114.0" onAction="#btnSaveOnAction" prefHeight="54.0" prefWidth="90.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 12; -fx-border-radius: 10;" text="Save">
          <font>
             <Font name="Times New Roman Bold" size="20.0" />

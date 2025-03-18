@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="811.0" prefWidth="1194.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.HealthTheraphyCenter.Controller.PatientsFormController">
    <children>
       <AnchorPane layoutX="24.0" layoutY="24.0" prefHeight="90.0" prefWidth="365.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 12; -fx-border-radius: 10;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
@@ -40,26 +39,38 @@
             <Font name="Times New Roman Bold" size="25.0" />
          </font>
       </Label>
-      <TextField fx:id="txtName" layoutX="232.0" layoutY="137.0" prefHeight="39.0" prefWidth="241.0" />
-      <TextField fx:id="txtID" layoutX="232.0" layoutY="218.0" prefHeight="40.0" prefWidth="242.0" />
-      <TextField fx:id="txtContact" layoutX="682.0" layoutY="137.0" prefHeight="39.0" prefWidth="200.0" />
-      <TextField fx:id="txtHistory" layoutX="682.0" layoutY="218.0" prefHeight="40.0" prefWidth="200.0" />
-      <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="947.0" layoutY="121.0" onAction="#btnSaveOnAction" prefHeight="56.0" prefWidth="95.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 10; -fx-background-radius: 12;" text="Save">
+      <TextField fx:id="txtName" layoutX="232.0" layoutY="137.0" prefHeight="39.0" prefWidth="241.0" promptText="Name">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font></TextField>
+      <TextField fx:id="txtID" layoutX="232.0" layoutY="218.0" prefHeight="40.0" prefWidth="242.0" promptText="ID">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font></TextField>
+      <TextField fx:id="txtContact" layoutX="682.0" layoutY="137.0" prefHeight="39.0" prefWidth="200.0" promptText="Contact">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font></TextField>
+      <TextField fx:id="txtHistory" layoutX="682.0" layoutY="218.0" prefHeight="40.0" prefWidth="200.0" promptText="History">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font></TextField>
+      <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="947.0" layoutY="93.0" onAction="#btnSaveOnAction" prefHeight="56.0" prefWidth="95.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 10; -fx-background-radius: 12;" text="Save">
          <font>
             <Font name="Times New Roman Bold" size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="1074.0" layoutY="121.0" onAction="#btnUpdateOnAction" prefHeight="56.0" prefWidth="95.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 10; -fx-background-radius: 12;" text="Update">
+      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="1074.0" layoutY="93.0" onAction="#btnUpdateOnAction" prefHeight="56.0" prefWidth="95.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 10; -fx-background-radius: 12;" text="Update">
          <font>
             <Font name="Times New Roman Bold" size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="947.0" layoutY="219.0" onAction="#btnDeleteOnAction" prefHeight="56.0" prefWidth="95.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 10; -fx-background-radius: 12;" text="Delete">
+      <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="947.0" layoutY="191.0" onAction="#btnDeleteOnAction" prefHeight="56.0" prefWidth="95.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 10; -fx-background-radius: 12;" text="Delete">
          <font>
             <Font name="Times New Roman Bold" size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnRefresh" buttonType="RAISED" layoutX="1074.0" layoutY="219.0" onAction="#btnRefreshOnAction" prefHeight="56.0" prefWidth="95.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 10; -fx-background-radius: 12;" text="Refresh">
+      <JFXButton fx:id="btnRefresh" buttonType="RAISED" layoutX="1074.0" layoutY="191.0" onAction="#btnRefreshOnAction" prefHeight="56.0" prefWidth="95.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 10; -fx-background-radius: 12;" text="Refresh">
          <font>
             <Font name="Times New Roman Bold" size="20.0" />
          </font>
@@ -78,6 +89,19 @@
             <Font name="Times New Roman Bold" size="25.0" />
          </font>
       </Label>
-      <TextField fx:id="txtEmail" layoutX="231.0" layoutY="286.0" prefHeight="40.0" prefWidth="242.0" />
+      <TextField fx:id="txtEmail" layoutX="231.0" layoutY="286.0" prefHeight="40.0" prefWidth="242.0" promptText="Email">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font></TextField>
+      <JFXButton buttonType="RAISED" layoutX="882.0" layoutY="278.0" onAction="#openSendMailModel" prefHeight="56.0" prefWidth="136.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 12; -fx-border-radius: 10;" text="Send Email">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnReport" buttonType="RAISED" layoutX="1047.0" layoutY="276.0" onAction="#btnReportOnAction" prefHeight="56.0" prefWidth="136.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 12; -fx-border-radius: 10;" text="Invoice">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

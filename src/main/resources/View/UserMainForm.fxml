@@ -8,10 +8,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="885.0" prefWidth="1523.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.HealthTheraphyCenter.Controller.UserMainFormController">
+<AnchorPane prefHeight="885.0" prefWidth="1523.0" style="-fx-background-color: #B0DFE0;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.HealthTheraphyCenter.Controller.UserMainFormController">
    <children>
       <AnchorPane fx:id="CommonAnchore" layoutX="294.0" layoutY="37.0" prefHeight="811.0" prefWidth="1194.0" />
-      <Pane layoutX="14.0" layoutY="16.0" prefHeight="158.0" prefWidth="216.0" style="-fx-background-radius: 30; -fx-background-color: 3FEF9EF;" styleClass="shadow" stylesheets="@../../../../../../Downloads/CarRental-Layered-Architecture-master%20(3)/CarRental-Layered-Architecture-master/01/se/javaFx/App2/Cabtech-layered/src/main/resources/styls/styls.css">
+      <Pane layoutX="-5.0" layoutY="-3.0" prefHeight="891.0" prefWidth="235.0" style="-fx-background-color: white;" styleClass="shadow" stylesheets="@../../../../../../Downloads/CarRental-Layered-Architecture-master%20(3)/CarRental-Layered-Architecture-master/01/se/javaFx/App2/Cabtech-layered/src/main/resources/styls/styls.css">
          <children>
             <Label layoutX="19.0" layoutY="5.0" styleClass="shadow" stylesheets="@../../../../../../Downloads/CarRental-Layered-Architecture-master%20(3)/CarRental-Layered-Architecture-master/01/se/javaFx/App2/Cabtech-layered/src/main/resources/styls/styls.css" text="DATE">
                <font>
@@ -43,14 +43,19 @@
                   <Font name="Times New Roman Italic" size="20.0" />
                </font>
             </Label>
+            <JFXButton buttonType="RAISED" layoutX="68.0" layoutY="777.0" onAction="#BackbtnOnAction" prefHeight="50.0" prefWidth="94.0" style="-fx-background-color: white;" text="Back">
+               <font>
+                  <Font name="Times New Roman Bold" size="23.0" />
+               </font>
+            </JFXButton>
          </children>
       </Pane>
-      <JFXButton buttonType="RAISED" layoutX="21.0" layoutY="195.0" onAction="#DashboardBtnOnAction" prefHeight="71.0" prefWidth="186.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 12; -fx-border-radius: 10;" text="Dashboard">
+      <JFXButton buttonType="RAISED" layoutX="21.0" layoutY="195.0" onAction="#DashboardBtnOnAction" prefHeight="71.0" prefWidth="186.0" style="-fx-background-color: #FBFBFB;" text="Dashboard">
          <font>
             <Font name="Times New Roman Bold" size="30.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="21.0" layoutY="291.0" onAction="#patientsbtnOnaction" prefHeight="71.0" prefWidth="186.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 12; -fx-border-radius: 10;" text="Patients">
+      <JFXButton buttonType="RAISED" layoutX="21.0" layoutY="291.0" onAction="#patientsbtnOnaction" prefHeight="71.0" prefWidth="186.0" style="-fx-background-color: #FBFBFB;" text="Patients">
          <font>
             <Font name="Times New Roman Bold" size="30.0" />
          </font>

@@ -7,8 +7,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -83,6 +86,20 @@ public class MainController {
         Node node = (Node) FXMLLoader.load(getClass().getResource("/View/Therapists.fxml"));
         CommonAnchore.getChildren().clear();
         CommonAnchore.getChildren().setAll(node);
+
+    }
+    @FXML
+    void BackbtnOnAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/LoginForm.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("User Login"); // Set window title
+        stage.show();
+
+        // Optionally close the current window
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
 
     }
 

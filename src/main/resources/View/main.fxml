@@ -8,10 +8,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="885.0" prefWidth="1523.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.HealthTheraphyCenter.Controller.MainController">
+<AnchorPane prefHeight="885.0" prefWidth="1523.0" style="-fx-background-color: #B0DFE0;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.HealthTheraphyCenter.Controller.MainController">
    <children>
       <AnchorPane fx:id="CommonAnchore" layoutX="285.0" layoutY="37.0" prefHeight="811.0" prefWidth="1194.0" />
-      <Pane layoutX="8.0" layoutY="10.0" prefHeight="158.0" prefWidth="216.0" style="-fx-background-radius: 30; -fx-background-color: 3FEF9EF;" styleClass="shadow" stylesheets="@../../../../../../Downloads/CarRental-Layered-Architecture-master%20(3)/CarRental-Layered-Architecture-master/01/se/javaFx/App2/Cabtech-layered/src/main/resources/styls/styls.css">
+      <Pane layoutX="-2.0" layoutY="-3.0" prefHeight="892.0" prefWidth="230.0" style="-fx-background-color: white;" styleClass="shadow" stylesheets="@../../../../../../Downloads/CarRental-Layered-Architecture-master%20(3)/CarRental-Layered-Architecture-master/01/se/javaFx/App2/Cabtech-layered/src/main/resources/styls/styls.css">
          <children>
             <Label layoutX="19.0" layoutY="5.0" styleClass="shadow" stylesheets="@../../../../../../Downloads/CarRental-Layered-Architecture-master%20(3)/CarRental-Layered-Architecture-master/01/se/javaFx/App2/Cabtech-layered/src/main/resources/styls/styls.css" text="DATE">
                <font>
@@ -43,24 +43,29 @@
                   <Font name="Times New Roman Italic" size="20.0" />
                </font>
             </Label>
+            <JFXButton buttonType="RAISED" layoutX="65.0" layoutY="798.0" onAction="#BackbtnOnAction" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: white;" text="Back">
+               <font>
+                  <Font name="Times New Roman Bold" size="25.0" />
+               </font>
+            </JFXButton>
          </children>
       </Pane>
-      <JFXButton buttonType="RAISED" layoutX="9.0" layoutY="175.0" onAction="#DashboardBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 12; -fx-border-radius: 10;" text="Dashboard">
+      <JFXButton buttonType="RAISED" layoutX="10.0" layoutY="176.0" onAction="#DashboardBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #FBFBFB;" text="Dashboard">
          <font>
             <Font name="Times New Roman Bold" size="30.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="10.0" layoutY="264.0" onAction="#UserBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 10; -fx-background-radius: 12;" text="Users">
+      <JFXButton buttonType="RAISED" layoutX="11.0" layoutY="264.0" onAction="#UserBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #FBFBFB;" text="Users">
          <font>
             <Font name="Times New Roman Bold" size="30.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="9.0" layoutY="353.0" onAction="#programBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 10; -fx-background-radius: 12;" text=" Programs">
+      <JFXButton buttonType="RAISED" layoutX="11.0" layoutY="353.0" onAction="#programBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #FBFBFB;" text=" Programs">
          <font>
             <Font name="Times New Roman Bold" size="30.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="7.0" layoutY="444.0" onAction="#TherapistBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 10; -fx-background-radius: 12;" text="Therapists">
+      <JFXButton buttonType="RAISED" layoutX="10.0" layoutY="444.0" onAction="#TherapistBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #FBFBFB;" text="Therapists">
          <font>
             <Font name="Times New Roman Bold" size="30.0" />
          </font>

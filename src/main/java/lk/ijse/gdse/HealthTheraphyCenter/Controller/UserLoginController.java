@@ -20,6 +20,7 @@ import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.ProgramBO;
 import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.UserBO;
 import lk.ijse.gdse.HealthTheraphyCenter.dto.UserDto;
 import org.controlsfx.control.Notifications;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 
@@ -36,6 +37,7 @@ public class UserLoginController {
     public static String loggedInUserName;
     UserBO userBO = BoFactory.getInstance().getBO(BoTypes.USER);
 
+    // Method to handle user registration
     @FXML
     void RegisterBtnOnAction(ActionEvent event) throws IOException {
         // Load the Register Form in the AnchorPane
@@ -44,41 +46,59 @@ public class UserLoginController {
         UserAnchore.getChildren().setAll(node);
     }
 
+    // Method to handle user login
     @FXML
     void UserLoginOnAction(ActionEvent event) throws Exception {
         validateLogin(event); // Pass event to close the login window properly
     }
 
+    // Method to validate user login
     private void validateLogin(ActionEvent event) throws Exception {
         String username = NameTxt.getText();
         String password = PasswordTxt.getText();
 
+        // Fetch user details from the database
         UserDto user = userBO.getUserByName(username);
 
         if (user == null || user.getUsername() == null) {
             showNotification("Error: Username not found or incorrect.", "/Asset/icons8-close-100.png");
             clearFields();
-        } else if (!user.getPassword().equals(password)) {
-            showNotification("Error: Incorrect password.", "/Asset/icons8-close-100.png");
-            clearFields();
         } else {
-            // Set the logged-in user's name
-            loggedInUserName = user.getUsername(); // Store the username
+            // Debug: Print the hashed password from the database
+            System.out.println("Hashed password from DB: " + user.getPassword());
 
-            // Close the current login window before opening the new one
-            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            currentStage.close();
+            // Verify the entered password with the hashed password stored in the database
+            try {
+                if (!BCrypt.checkpw(password, user.getPassword())) {
+                    showNotification("Error: Incorrect password.", "/Asset/icons8-close-100.png");
+                    clearFields();
+                } else {
+                    // Set the logged-in user's name
+                    loggedInUserName = user.getUsername(); // Store the username
 
-            // Open the User Dashboard
-            createDashboard();
+                    // Close the current login window before opening the new one
+                    Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    currentStage.close();
+
+                    // Open the User Dashboard
+                    createDashboard();
+                }
+            } catch (IllegalArgumentException e) {
+                // Handle invalid salt version or corrupted hash
+                System.err.println("Error verifying password: " + e.getMessage());
+                showNotification("Error: Invalid password format. Please contact support.", "/Asset/icons8-close-100.png");
+                clearFields();
+            }
         }
     }
 
+    // Method to clear login fields
     private void clearFields() {
         NameTxt.clear();
         PasswordTxt.clear();
     }
 
+    // Method to create and show the user dashboard
     private void createDashboard() throws IOException {
         // Load the dashboard UI
         Stage stage = new Stage();
@@ -97,6 +117,7 @@ public class UserLoginController {
         PasswordTxt.clear();
     }
 
+    // Method to show notifications
     private void showNotification(String message, String iconPath) {
         ImageView imageView = new ImageView(new Image(iconPath));
         Notifications.create()
@@ -107,6 +128,31 @@ public class UserLoginController {
                 .position(Pos.TOP_RIGHT)
                 .darkStyle()
                 .show();
+    }
+
+    // Method to handle user registration (if needed)
+    @FXML
+    void registerUser(ActionEvent event) throws Exception {
+        String username = NameTxt.getText();
+        String plainTextPassword = PasswordTxt.getText();
+
+        // Hash the password before saving
+        String hashedPassword = BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
+
+        // Create a new user DTO
+        UserDto user = new UserDto();
+        user.setUsername(username);
+        user.setPassword(hashedPassword);
+
+        // Save the user to the database
+        boolean isSaved = userBO.saveUser(user);
+
+        if (isSaved) {
+            showNotification("User registered successfully!", "/Asset/success.png");
+            clearFields();
+        } else {
+            showNotification("Error: Failed to register user.", "/Asset/icons8-close-100.png");
+        }
     }
 
 }

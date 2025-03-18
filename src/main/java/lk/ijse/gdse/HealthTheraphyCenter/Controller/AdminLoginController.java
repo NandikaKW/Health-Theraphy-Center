@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 
@@ -24,15 +25,18 @@ public class AdminLoginController {
 
     @FXML
     private TextField Name;
+    // Storing a hashed password
     private final String UserName = "Nandika";
-    private final String Password = "1234";
+    private final String PasswordHash = BCrypt.hashpw("1234", BCrypt.gensalt()); // Hash password during storage
+
     @FXML
     void loginBtnOnAction(ActionEvent event) throws IOException {
         String enteredUsername = Name.getText();
         String enteredPassword = Code.getText();
 
         if (UserName.equals(enteredUsername)) {
-            if (Password.equals(enteredPassword)) {
+            // Verify the entered password with the hashed one
+            if (BCrypt.checkpw(enteredPassword, PasswordHash)) {
                 clearFields();
                 createdashboard(event); // Pass event to close login window properly
             } else {
@@ -66,6 +70,7 @@ public class AdminLoginController {
         newStage.setScene(scene);
         newStage.show();
     }
+
     private void showErrorNotification(String message) {
         ImageView imageView = new ImageView(new Image("/Asset/icons8-close-100.png"));
         Notifications.create()

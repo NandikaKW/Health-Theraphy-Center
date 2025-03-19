@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import lk.ijse.gdse.HealthTheraphyCenter.Exception.UserRegistrationException;
 import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.BoFactory;
 import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.BoTypes;
 import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.UserBO;
@@ -56,15 +57,26 @@ public class RegisterFormController {
                         .show();
                 clearFields();
             } else {
-                throw new Exception("Failed to save user.");
+                throw new UserRegistrationException("Failed to save user.");
             }
-        } catch (Exception e) {
+        } catch (UserRegistrationException e) {
             e.printStackTrace();
             ImageView imageView = new ImageView(new Image("/Asset/icons8-close-100.png"));
             Notifications.create()
                     .graphic(imageView)
                     .text("User Not Added. Please try again.")
                     .title("WARNING")
+                    .hideAfter(Duration.seconds(5))
+                    .position(Pos.TOP_RIGHT)
+                    .darkStyle()
+                    .show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            ImageView imageView = new ImageView(new Image("/Asset/icons8-close-100.png"));
+            Notifications.create()
+                    .graphic(imageView)
+                    .text("An unexpected error occurred. Please try again later.")
+                    .title("ERROR")
                     .hideAfter(Duration.seconds(5))
                     .position(Pos.TOP_RIGHT)
                     .darkStyle()

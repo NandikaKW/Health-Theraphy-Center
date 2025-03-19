@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import lk.ijse.gdse.HealthTheraphyCenter.Exception.UserLoginException;
 import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.BoFactory;
 import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.BoTypes;
 import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.ProgramBO;
@@ -49,7 +50,17 @@ public class UserLoginController {
     // Method to handle user login
     @FXML
     void UserLoginOnAction(ActionEvent event) throws Exception {
-        validateLogin(event); // Pass event to close the login window properly
+        try {
+            validateLogin(event); // Pass event to close the login window properly
+        } catch (UserLoginException e) {
+            // Handle the custom exception and show an appropriate notification
+            showNotification(e.getMessage(), "/Asset/icons8-close-100.png");
+            clearFields();
+        } catch (Exception e) {
+            // Generic exception handling
+            showNotification("An unexpected error occurred. Please try again.", "/Asset/icons8-close-100.png");
+            clearFields();
+        }
     }
 
     // Method to validate user login
@@ -61,17 +72,12 @@ public class UserLoginController {
         UserDto user = userBO.getUserByName(username);
 
         if (user == null || user.getUsername() == null) {
-            showNotification("Error: Username not found or incorrect.", "/Asset/icons8-close-100.png");
-            clearFields();
+            throw new UserLoginException("Error: Username not found or incorrect.");
         } else {
-            // Debug: Print the hashed password from the database
-            System.out.println("Hashed password from DB: " + user.getPassword());
-
             // Verify the entered password with the hashed password stored in the database
             try {
                 if (!BCrypt.checkpw(password, user.getPassword())) {
-                    showNotification("Error: Incorrect password.", "/Asset/icons8-close-100.png");
-                    clearFields();
+                    throw new UserLoginException("Error: Incorrect password.");
                 } else {
                     // Set the logged-in user's name
                     loggedInUserName = user.getUsername(); // Store the username
@@ -85,9 +91,7 @@ public class UserLoginController {
                 }
             } catch (IllegalArgumentException e) {
                 // Handle invalid salt version or corrupted hash
-                System.err.println("Error verifying password: " + e.getMessage());
-                showNotification("Error: Invalid password format. Please contact support.", "/Asset/icons8-close-100.png");
-                clearFields();
+                throw new UserLoginException("Error: Invalid password format. Please contact support.", e);
             }
         }
     }

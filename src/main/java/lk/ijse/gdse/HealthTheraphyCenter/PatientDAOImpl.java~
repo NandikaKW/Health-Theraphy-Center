@@ -1,0 +1,121 @@
+package lk.ijse.gdse.HealthTheraphyCenter;
+
+import javafx.scene.control.Alert;
+import lk.ijse.gdse.HealthTheraphyCenter.Entity.Patient;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
+import java.util.List;
+import java.util.Optional;
+
+public class PatientDAOImpl implements PatientDAO {
+    private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
+    @Override
+    public boolean save(Patient patient) {
+        Session session = factoryConfiguration.getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            // C001
+            // C001
+            Patient existsPatient = session.get(Patient.class, patient.getId());
+            if (existsPatient != null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Duplicate ID");
+                alert.setContentText("Patient with ID " + patient.getId() + " already exists.");
+                alert.showAndWait();
+                return false;
+            }
+
+            session.persist(patient);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            transaction.rollback();
+            return false;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+    @Override
+    public boolean update(Patient patient) {
+        Session session = factoryConfiguration.getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.merge(patient);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            transaction.rollback();
+            return false;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+    @Override
+    public boolean deleteByPK(String pk) throws Exception {
+        Session session = factoryConfiguration.getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            Patient customer = session.get(Patient.class, pk);
+            if (customer == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Customer not found");
+                alert.setContentText("Customer with ID " + pk + " not found.");
+                alert.showAndWait();
+                return false;
+            }
+            // customer have order
+            // In use
+
+            session.remove(customer);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            transaction.rollback();
+            return false;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+    @Override
+    public List<Patient> getAll() {
+        Session session = factoryConfiguration.getSession();
+        Query<Patient> query = session.createQuery("FROM Patient", Patient.class);
+        return query.list();
+    }
+
+    @Override
+    public Optional<Patient> findByPK(String pk) {
+        Session session = factoryConfiguration.getSession();
+        Patient patient = session.get(Patient.class, pk);
+        session.close();
+        if (patient == null) {
+            return Optional.empty();
+        }
+        return Optional.of(patient);
+    }
+
+    @Override
+    public Optional<String> getLastPK() {
+        Session session = factoryConfiguration.getSession();
+
+        String lastPk = session
+                .createQuery("SELECT p.id FROM Patient p ORDER BY p.id DESC", String.class)
+                .setMaxResults(1)
+                .uniqueResult();
+
+        return Optional.ofNullable(lastPk);
+    }
+}

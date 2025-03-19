@@ -1,0 +1,51 @@
+package lk.ijse.gdse.HealthTheraphyCenter;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+
+import java.io.IOException;
+import java.sql.SQLException;
+
+public class MainController {
+
+    @FXML
+    private AnchorPane CommonAnchore;
+
+    @FXML
+    private Label lblDate;
+
+    @FXML
+    private Label lblTime;
+    @FXML
+    public void initialize() throws SQLException, ClassNotFoundException, IOException {
+        Node node = (Node) FXMLLoader.load(getClass().getResource("/View/Dashboard.fxml"));
+        CommonAnchore.getChildren().clear();
+        CommonAnchore.getChildren().setAll(node);
+        loadDateAndTime();
+    }
+
+    private void loadDateAndTime() {
+
+    }
+
+    @FXML
+    void DashboardBtnOnAction(ActionEvent event) throws IOException {
+        Node node = (Node) FXMLLoader.load(getClass().getResource("/View/Dashboard.fxml"));
+        CommonAnchore.getChildren().clear();
+        CommonAnchore.getChildren().setAll(node);
+
+    }
+
+    @FXML
+    void UserBtnOnAction(ActionEvent event) throws IOException {
+        Node node = (Node) FXMLLoader.load(getClass().getResource("/View/UsersForm.fxml"));
+        CommonAnchore.getChildren().clear();
+        CommonAnchore.getChildren().setAll(node);
+
+    }
+
+}

@@ -6,10 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="811.0" prefWidth="1194.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.HealthTheraphyCenter.Controller.UsersFormController">
    <children>
-      <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="106.0" prefWidth="481.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 12; -fx-border-radius: 10;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
+      <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="106.0" prefWidth="481.0" style="-fx-background-color: white;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
          <children>
             <Label layoutX="111.0" layoutY="24.0" text="User Details">
                <font>

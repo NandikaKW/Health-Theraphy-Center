@@ -31,7 +31,7 @@
             <Font name="Times New Roman Bold" size="20.0" />
          </font>
       </TextArea>
-      <JFXButton buttonType="RAISED" layoutX="453.0" layoutY="353.0" onAction="#sendUsingGmailOnAction" prefHeight="51.0" prefWidth="116.0" style="-fx-background-color: #FBFBFB;" text="Send">
+      <JFXButton buttonType="RAISED" layoutX="453.0" layoutY="353.0" onAction="#sendUsingGmailOnAction" prefHeight="51.0" prefWidth="116.0" style="-fx-background-color: white;" text="Send">
          <font>
             <Font name="Times New Roman Bold" size="25.0" />
          </font></JFXButton>

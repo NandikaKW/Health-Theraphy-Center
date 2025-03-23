@@ -43,19 +43,19 @@
                   <Font name="Times New Roman Italic" size="20.0" />
                </font>
             </Label>
-            <JFXButton buttonType="RAISED" layoutX="68.0" layoutY="777.0" onAction="#BackbtnOnAction" prefHeight="50.0" prefWidth="94.0" style="-fx-background-color: white;" text="Back">
+            <JFXButton buttonType="RAISED" layoutX="68.0" layoutY="777.0" onAction="#BackbtnOnAction" prefHeight="50.0" prefWidth="94.0" style="-fx-background-color: #B0DFE0;" text="Back">
                <font>
                   <Font name="Times New Roman Bold" size="23.0" />
                </font>
             </JFXButton>
          </children>
       </Pane>
-      <JFXButton buttonType="RAISED" layoutX="21.0" layoutY="195.0" onAction="#DashboardBtnOnAction" prefHeight="71.0" prefWidth="186.0" style="-fx-background-color: #FBFBFB;" text="Dashboard">
+      <JFXButton buttonType="RAISED" layoutX="21.0" layoutY="195.0" onAction="#DashboardBtnOnAction" prefHeight="71.0" prefWidth="186.0" style="-fx-background-color: #B0DFE0;" text="Dashboard">
          <font>
             <Font name="Times New Roman Bold" size="30.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="21.0" layoutY="291.0" onAction="#patientsbtnOnaction" prefHeight="71.0" prefWidth="186.0" style="-fx-background-color: #FBFBFB;" text="Patients">
+      <JFXButton buttonType="RAISED" layoutX="21.0" layoutY="291.0" onAction="#patientsbtnOnaction" prefHeight="71.0" prefWidth="186.0" style="-fx-background-color: #B0DFE0;" text="Patients">
          <font>
             <Font name="Times New Roman Bold" size="30.0" />
          </font>

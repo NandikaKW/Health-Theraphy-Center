@@ -39,23 +39,35 @@ public class EmailController {
             return;
         }
 
-        // Attempt to send the email and handle errors that may occur
-        try {
-            sendEmailWithGmail(FROM, customerEmail, subject, body);
-            new Alert(Alert.AlertType.INFORMATION, "Email sent successfully!").show();
-            txtBody.clear();
-            txtSubject.clear();
+        // Run the email sending in a background thread
+        new Thread(() -> {
+            try {
+                sendEmailWithGmail(FROM, customerEmail, subject, body);
 
-        } catch (AuthenticationFailedException e) {
-            new Alert(Alert.AlertType.ERROR, "Authentication failed. Please check your email credentials.").show();
-            e.printStackTrace();
-        } catch (MessagingException e) {
-            new Alert(Alert.AlertType.ERROR, "Failed to send email. Please check your internet connection or try again later.").show();
-            e.printStackTrace();
-        } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
-            e.printStackTrace();
-        }
+                // Show success alert on JavaFX UI thread
+                javafx.application.Platform.runLater(() -> {
+                    new Alert(Alert.AlertType.INFORMATION, "Email sent successfully!").show();
+                    txtBody.clear();
+                    txtSubject.clear();
+                });
+
+            } catch (AuthenticationFailedException e) {
+                javafx.application.Platform.runLater(() ->
+                        new Alert(Alert.AlertType.ERROR, "Authentication failed. Please check your email credentials.").show()
+                );
+                e.printStackTrace();
+            } catch (MessagingException e) {
+                javafx.application.Platform.runLater(() ->
+                        new Alert(Alert.AlertType.ERROR, "Failed to send email. Please check your internet connection or try again later.").show()
+                );
+                e.printStackTrace();
+            } catch (Exception e) {
+                javafx.application.Platform.runLater(() ->
+                        new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show()
+                );
+                e.printStackTrace();
+            }
+        }).start();
 
     }
     private void sendEmailWithGmail(String from, String to, String subject, String messageBody) throws MessagingException {

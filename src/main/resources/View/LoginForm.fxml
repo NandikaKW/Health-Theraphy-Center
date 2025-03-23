@@ -15,12 +15,12 @@
          </font>
       </Label>
       <AnchorPane fx:id="loginFuntions" layoutX="496.0" prefHeight="600.0" prefWidth="506.0" />
-      <JFXButton buttonType="RAISED" layoutX="58.0" layoutY="76.0" onAction="#UserBtnOnAction" prefHeight="70.0" prefWidth="143.0" style="-fx-background-color: #FBFBFB;" text="user">
+      <JFXButton buttonType="RAISED" layoutX="58.0" layoutY="76.0" onAction="#UserBtnOnAction" prefHeight="70.0" prefWidth="143.0" style="-fx-background-color: white;" text="user">
          <font>
             <Font name="Times New Roman Bold" size="30.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="247.0" layoutY="76.0" onAction="#AdminBtnOnAction" prefHeight="70.0" prefWidth="143.0" style="-fx-background-color: #FBFBFB;" text="Admin">
+      <JFXButton buttonType="RAISED" layoutX="247.0" layoutY="76.0" onAction="#AdminBtnOnAction" prefHeight="70.0" prefWidth="143.0" style="-fx-background-color: white;" text="Admin">
          <font>
             <Font name="Times New Roman Bold" size="30.0" />
          </font>

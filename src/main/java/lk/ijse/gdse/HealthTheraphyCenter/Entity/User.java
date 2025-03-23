@@ -21,5 +21,5 @@ public class User implements SuperEntity {
 
 
 
-
+// role. ADMIN,USER
 }

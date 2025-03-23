@@ -11,7 +11,7 @@
 
 <AnchorPane fx:id="UserAnchore" prefHeight="600.0" prefWidth="506.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.HealthTheraphyCenter.Controller.UserLoginController">
    <children>
-      <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="78.0" prefWidth="470.0" style="-fx-background-color: #FBFBFB;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
+      <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="78.0" prefWidth="470.0" style="-fx-background-color: white;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
          <children>
             <Label layoutX="81.0" layoutY="14.0" text="Welcome Back ">
                <font>
@@ -35,7 +35,7 @@
             <Image url="@../imges/a29da9f5445172a22699934407c008ad.gif" />
          </image>
       </ImageView>
-      <JFXButton buttonType="RAISED" layoutX="179.0" layoutY="470.0" onAction="#UserLoginOnAction" prefHeight="78.0" prefWidth="149.0" style="-fx-background-color: #FBFBFB;" text="Login">
+      <JFXButton buttonType="RAISED" layoutX="179.0" layoutY="470.0" onAction="#UserLoginOnAction" prefHeight="78.0" prefWidth="149.0" style="-fx-background-color: white;" text="Login">
          <font>
             <Font name="Times New Roman Bold" size="38.0" />
          </font>

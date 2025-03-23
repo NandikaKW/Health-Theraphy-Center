@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="811.0" prefWidth="1194.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.HealthTheraphyCenter.Controller.DashboardController">
    <children>
-      <AnchorPane layoutX="92.0" layoutY="13.0" prefHeight="150.0" prefWidth="1013.0" style="-fx-background-color: #FBFBFB;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
+      <AnchorPane layoutX="92.0" layoutY="13.0" prefHeight="150.0" prefWidth="1013.0" style="-fx-background-color: white;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
          <children>
             <Label layoutX="44.0" layoutY="29.0" prefHeight="62.0" prefWidth="930.0" text="Welcome to Serenity Mental Health Therapy Center" textFill="#005656">
                <font>
@@ -22,7 +22,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="918.0" layoutY="392.0" prefHeight="174.0" prefWidth="234.0" style="-fx-background-color: #FBFBFB;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
+      <AnchorPane layoutX="918.0" layoutY="392.0" prefHeight="174.0" prefWidth="234.0" style="-fx-background-color: white;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
          <children>
             <Label layoutX="9.0" layoutY="38.0" text="Thearpy Programes " textFill="#005656">
                <font>
@@ -36,7 +36,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="918.0" layoutY="203.0" prefHeight="174.0" prefWidth="234.0" style="-fx-background-color: #FBFBFB;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
+      <AnchorPane layoutX="918.0" layoutY="203.0" prefHeight="174.0" prefWidth="234.0" style="-fx-background-color: white;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
          <children>
             <Label layoutX="62.0" layoutY="34.0" text="User Count" textFill="#005656">
                <font>
@@ -50,7 +50,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="918.0" layoutY="592.0" prefHeight="174.0" prefWidth="234.0" style="-fx-background-color: #FBFBFB;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
+      <AnchorPane layoutX="918.0" layoutY="592.0" prefHeight="174.0" prefWidth="234.0" style="-fx-background-color: white;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
          <children>
             <Label layoutX="37.0" layoutY="38.0" text="Patients Count" textFill="#005656">
                <font>

@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="811.0" prefWidth="1194.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.HealthTheraphyCenter.Controller.TherapistsFormController">
    <children>
-      <AnchorPane layoutX="22.0" layoutY="25.0" prefHeight="84.0" prefWidth="398.0" style="-fx-background-color: #FBFBFB;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
+      <AnchorPane layoutX="22.0" layoutY="25.0" prefHeight="84.0" prefWidth="398.0" style="-fx-background-color: white;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
          <children>
             <Label layoutX="40.0" layoutY="20.0" text="Therapists Details">
                <font>
@@ -64,22 +64,22 @@
          <font>
             <Font name="Times New Roman Bold" size="20.0" />
          </font></TextField>
-      <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="964.0" layoutY="114.0" onAction="#btnSaveOnAction" prefHeight="54.0" prefWidth="90.0" style="-fx-background-color: #FBFBFB;" text="Save">
+      <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="964.0" layoutY="114.0" onAction="#btnSaveOnAction" prefHeight="54.0" prefWidth="90.0" style="-fx-background-color: white;" text="Save">
          <font>
             <Font name="Times New Roman Bold" size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="1078.0" layoutY="114.0" onAction="#btnUpdateOnAction" prefHeight="54.0" prefWidth="90.0" style="-fx-background-color: #FBFBFB;" text="Update">
+      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="1078.0" layoutY="114.0" onAction="#btnUpdateOnAction" prefHeight="54.0" prefWidth="90.0" style="-fx-background-color: white;" text="Update">
          <font>
             <Font name="Times New Roman Bold" size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="967.0" layoutY="187.0" onAction="#btnDeleteOnAction" prefHeight="54.0" prefWidth="90.0" style="-fx-background-color: #FBFBFB;" text="Delete">
+      <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="967.0" layoutY="187.0" onAction="#btnDeleteOnAction" prefHeight="54.0" prefWidth="90.0" style="-fx-background-color: white;" text="Delete">
          <font>
             <Font name="Times New Roman Bold" size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnRefresh" buttonType="RAISED" layoutX="1076.0" layoutY="186.0" onAction="#btnRefreshOnAction" prefHeight="54.0" prefWidth="100.0" style="-fx-background-color: #FBFBFB;" text="Refresh">
+      <JFXButton fx:id="btnRefresh" buttonType="RAISED" layoutX="1076.0" layoutY="186.0" onAction="#btnRefreshOnAction" prefHeight="54.0" prefWidth="100.0" style="-fx-background-color: white;" text="Refresh">
          <font>
             <Font name="Times New Roman Bold" size="20.0" />
          </font>

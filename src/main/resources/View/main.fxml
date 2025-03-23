@@ -43,29 +43,29 @@
                   <Font name="Times New Roman Italic" size="20.0" />
                </font>
             </Label>
-            <JFXButton buttonType="RAISED" layoutX="65.0" layoutY="798.0" onAction="#BackbtnOnAction" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: white;" text="Back">
+            <JFXButton buttonType="RAISED" layoutX="65.0" layoutY="798.0" onAction="#BackbtnOnAction" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #B0DFE0;" text="Back">
                <font>
                   <Font name="Times New Roman Bold" size="25.0" />
                </font>
             </JFXButton>
          </children>
       </Pane>
-      <JFXButton buttonType="RAISED" layoutX="10.0" layoutY="176.0" onAction="#DashboardBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #FBFBFB;" text="Dashboard">
+      <JFXButton buttonType="RAISED" layoutX="10.0" layoutY="176.0" onAction="#DashboardBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #B0DFE0;" text="Dashboard">
          <font>
             <Font name="Times New Roman Bold" size="30.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="11.0" layoutY="264.0" onAction="#UserBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #FBFBFB;" text="Users">
+      <JFXButton buttonType="RAISED" layoutX="11.0" layoutY="264.0" onAction="#UserBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #B0DFE0;" text="Users">
          <font>
             <Font name="Times New Roman Bold" size="30.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="11.0" layoutY="353.0" onAction="#programBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #FBFBFB;" text=" Programs">
+      <JFXButton buttonType="RAISED" layoutX="11.0" layoutY="353.0" onAction="#programBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #B0DFE0;" text=" Programs">
          <font>
             <Font name="Times New Roman Bold" size="30.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="10.0" layoutY="444.0" onAction="#TherapistBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #FBFBFB;" text="Therapists">
+      <JFXButton buttonType="RAISED" layoutX="10.0" layoutY="444.0" onAction="#TherapistBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #B0DFE0;" text="Therapists">
          <font>
             <Font name="Times New Roman Bold" size="30.0" />
          </font>

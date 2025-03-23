@@ -31,5 +31,7 @@ public class PatientProgramDetail {
 
     private Date enrollmentDate;
     private String status; // e.g., "Active", "Completed"
+    private int attendance;
+    private String programOutcome;
 
 }

@@ -9,11 +9,15 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 public class TherapistDAOImpl implements TherapistDAO {
     private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
+
+
+
     @Override
     public boolean save(Therapist therapist) {
         Session session = factoryConfiguration.getSession();

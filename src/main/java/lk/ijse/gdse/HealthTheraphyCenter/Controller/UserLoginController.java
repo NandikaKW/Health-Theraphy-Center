@@ -82,6 +82,16 @@ public class UserLoginController {
                     // Set the logged-in user's name
                     loggedInUserName = user.getUsername(); // Store the username
 
+                    // logged user
+
+                    // user.role
+
+                    // ADMIN
+                    // send admin dashboard
+
+                    // USER
+//                     Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
                     // Close the current login window before opening the new one
                     Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     currentStage.close();

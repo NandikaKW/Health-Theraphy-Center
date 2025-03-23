@@ -7,10 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="523.0" prefWidth="497.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.HealthTheraphyCenter.Controller.RegisterFormController">
    <children>
-      <AnchorPane layoutX="27.0" layoutY="14.0" prefHeight="72.0" prefWidth="442.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 12; -fx-border-radius: 10;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
+      <AnchorPane layoutX="27.0" layoutY="14.0" prefHeight="72.0" prefWidth="442.0" style="-fx-background-color: white;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
          <children>
             <Label layoutX="47.0" layoutY="15.0" text="Register Your Account">
                <font>
@@ -34,7 +33,7 @@
             <Font name="Times New Roman Bold" size="20.0" />
          </font>
       </PasswordField>
-      <JFXButton buttonType="RAISED" layoutX="163.0" layoutY="360.0" onAction="#RegisterBtnOnAction" prefHeight="72.0" prefWidth="160.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 12; -fx-border-radius: 10;" text="Register">
+      <JFXButton buttonType="RAISED" layoutX="163.0" layoutY="360.0" onAction="#RegisterBtnOnAction" prefHeight="72.0" prefWidth="160.0" style="-fx-background-color: white;" text="Register">
          <font>
             <Font name="Times New Roman Bold" size="30.0" />
          </font>

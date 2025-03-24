@@ -1,0 +1,151 @@
+package lk.ijse.gdse.HealthTheraphyCenter.bo.custom.impl;
+
+import lk.ijse.gdse.HealthTheraphyCenter.Entity.Patient;
+import lk.ijse.gdse.HealthTheraphyCenter.Entity.PatientProgramDetail;
+import lk.ijse.gdse.HealthTheraphyCenter.Entity.TherapyProgram;
+import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.PatientProgramBO;
+import lk.ijse.gdse.HealthTheraphyCenter.dao.DaoFactory;
+import lk.ijse.gdse.HealthTheraphyCenter.dao.DaoTypes;
+import lk.ijse.gdse.HealthTheraphyCenter.dao.custom.PatientDAO;
+import lk.ijse.gdse.HealthTheraphyCenter.dao.custom.PatientProgramDAO;
+import lk.ijse.gdse.HealthTheraphyCenter.dao.custom.ProgramDAO;
+import lk.ijse.gdse.HealthTheraphyCenter.dto.PatientProgramDTO;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+public class PatientProgramBOImpl implements PatientProgramBO {
+    PatientDAO patientDAO = DaoFactory.getInstance().getDAO(DaoTypes.PATIENT);
+    ProgramDAO programDAO = DaoFactory.getInstance().getDAO(DaoTypes.THERAPHY_PROGRAM);
+    PatientProgramDAO patientProgramDAO = DaoFactory.getInstance().getDAO(DaoTypes.PATIENT_PROGRAM);
+
+    @Override
+    public boolean savePatientProgram(PatientProgramDTO patientProgramDTO) throws Exception {
+
+        try {
+            // Retrieve the Patient object from the database using the patient ID
+            Patient patient = patientDAO.findById(patientProgramDTO.getPatientId());
+            if (patient == null) {
+                throw new IllegalArgumentException("Invalid Patient ID");
+            }
+
+            // Retrieve the TherapyProgram object from the database using the program ID
+            TherapyProgram therapyProgram = programDAO.findById(patientProgramDTO.getProgramId());
+            if (therapyProgram == null) {
+                throw new IllegalArgumentException("Invalid Program ID");
+            }
+
+            // Create the PatientProgramDetail object with the Patient and TherapyProgram objects
+            PatientProgramDetail patientProgramDetail = new PatientProgramDetail(
+                    patientProgramDTO.getId(),
+                    patient, // Set the Patient object
+                    therapyProgram, // Set the TherapyProgram object
+                    patientProgramDTO.getEnrollmentDate(), // Directly use the enrollmentDate as a String
+                    patientProgramDTO.getStatus(),
+                    patientProgramDTO.getAttendance(),
+                    patientProgramDTO.getProgramOutcome()
+            );
+
+            // Save the PatientProgramDetail object using the DAO
+            return patientProgramDAO.save(patientProgramDetail);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updatePatientProgram(PatientProgramDTO patientProgramDTO) {
+        try {
+            // Retrieve the Patient object from the database using the patient ID
+            Patient patient = patientDAO.findById(patientProgramDTO.getPatientId());
+            if (patient == null) {
+                throw new IllegalArgumentException("Invalid Patient ID");
+            }
+
+            // Retrieve the TherapyProgram object from the database using the program ID
+            TherapyProgram therapyProgram = programDAO.findById(patientProgramDTO.getProgramId());
+            if (therapyProgram == null) {
+                throw new IllegalArgumentException("Invalid Program ID");
+            }
+
+            // Create the PatientProgramDetail object with the Patient and TherapyProgram objects
+            PatientProgramDetail patientProgramDetail = new PatientProgramDetail(
+                    patientProgramDTO.getId(),
+                    patient, // Set the Patient object
+                    therapyProgram, // Set the TherapyProgram object
+                    patientProgramDTO.getEnrollmentDate(), // Use enrollmentDate as String
+                    patientProgramDTO.getStatus(),
+                    patientProgramDTO.getAttendance(),
+                    patientProgramDTO.getProgramOutcome()
+            );
+
+            // Update the PatientProgramDetail object using the DAO
+            return patientProgramDAO.update(patientProgramDetail);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error updating Patient Program", e);
+        }
+    }
+    @Override
+    public boolean deletePatientProgram(String id) {
+        try {
+            if (id == null || id.isEmpty()) {
+                throw new IllegalArgumentException("Invalid Patient Program ID");
+            }
+
+            return patientProgramDAO.deleteByPK(id);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error: " + e.getMessage());
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    @Override
+    public List<PatientProgramDTO> getAllPatientPrograms() {
+
+        return patientProgramDAO.getAll().stream().map(patientProgramDetail -> new PatientProgramDTO(
+                patientProgramDetail.getPatientProgramId(),
+                patientProgramDetail.getPatient().getId(), // Getting the patient ID as String
+                patientProgramDetail.getTherapyProgram().getId(), // Getting the therapy program ID as String
+                patientProgramDetail.getEnrollmentDate(), // Directly returning String date
+                patientProgramDetail.getStatus(),
+                patientProgramDetail.getAttendance(),
+                patientProgramDetail.getProgramOutcome()
+        )).collect(Collectors.toList()); // Collecting to List
+    }
+
+    @Override
+    public PatientProgramDTO findPatientProgramById(String patientId, String programId) {
+       return null;
+    }
+
+    @Override
+    public String getLastPatientProgramId() {
+        return null;
+    }
+    @Override
+    public String generateNextPatienProgramtID() {
+        Optional<String> lastPatientProgramID = patientProgramDAO.getLastPK(); // Fetch the last PatientProgramID
+
+        if (lastPatientProgramID.isPresent()) {
+            String lastID = lastPatientProgramID.get();
+            int numericPart = Integer.parseInt(lastID.substring(2)); // Extract the numeric part after 'PP'
+            numericPart++; // Increment the numeric part
+            return String.format("PP%02d", numericPart); // Return the new ID in the format PP01, PP02, etc.
+        } else {
+            return "PP01"; // Default ID if no PatientProgram exists
+        }
+    }
+
+
+
+
+}

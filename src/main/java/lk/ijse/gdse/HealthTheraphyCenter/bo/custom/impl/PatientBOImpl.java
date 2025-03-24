@@ -17,7 +17,7 @@ public class PatientBOImpl implements PatientBO {
     @Override
     public boolean savePatient(PatientDTO dto) {
         try {
-            // Convert DTO to Entity
+
             Patient patient = new Patient(
                     dto.getId(),
                     dto.getContact(),
@@ -26,7 +26,7 @@ public class PatientBOImpl implements PatientBO {
                     dto.getName()
             );
 
-            // Call DAO to save the patient
+
             return patientDAO.save(patient);
 
         } catch (Exception e) {
@@ -106,11 +106,11 @@ public class PatientBOImpl implements PatientBO {
 
         if (lastPatientID.isPresent()) {
             String lastID = lastPatientID.get();
-            int numericPart = Integer.parseInt(lastID.substring(1)); // Extract numeric part
-            numericPart++; // Increment the numeric part
-            return String.format("P%03d", numericPart); // Format back to P001, P002, etc.
+            int numericPart = Integer.parseInt(lastID.substring(1));
+            numericPart++;
+            return String.format("P%03d", numericPart);
         } else {
-            return "P001"; // Default if no patients exist
+            return "P001";
         }
     }
 

@@ -16,4 +16,11 @@ public class PatientsProgramsIDS {
     private String therapyProgramId;
 
 
+    public String getPatientId() {
+        return patientId;
+    }
+
+    public String getTherapyProgramId() {
+        return therapyProgramId;
+    }
 }

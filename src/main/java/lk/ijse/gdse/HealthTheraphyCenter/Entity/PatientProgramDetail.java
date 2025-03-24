@@ -12,26 +12,28 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "patient_program_details")
-public class PatientProgramDetail {
+public class PatientProgramDetail implements SuperEntity {
 
-    @EmbeddedId
-    private PatientsProgramsIDS patientsProgramsIDS;
-
-
+    @Id
+    @Column(name = "patient_program_id")
+    private String patientProgramId; // New Primary Key
 
     @ManyToOne
-    @MapsId("patientId")
     @JoinColumn(name = "patient_id", nullable = false)
-    private Patient patient;
+    private Patient patient; // Foreign Key
 
     @ManyToOne
-    @MapsId("therapyProgramId")
     @JoinColumn(name = "therapy_program_id", nullable = false)
-    private TherapyProgram therapyProgram;
+    private TherapyProgram therapyProgram; // Foreign Key
 
-    private Date enrollmentDate;
+    @Column(name = "enrollment_date")
+    private String enrollmentDate;
+
     private String status; // e.g., "Active", "Completed"
     private int attendance;
     private String programOutcome;
+
+
+
 
 }

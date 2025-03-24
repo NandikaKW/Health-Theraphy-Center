@@ -25,7 +25,7 @@ public class TherapistBOImpl implements TherapistBO {
     @Override
     public boolean addTherapist(TherapistDTO therapistDTO) {
         try {
-            // Fetch the TherapyProgram entity using the provided ID
+
             Optional<TherapyProgram> therapyProgramOpt = programDAO.findByPK(therapistDTO.getTherapyProgramId());
 
             if (!therapyProgramOpt.isPresent()) {
@@ -38,7 +38,7 @@ public class TherapistBOImpl implements TherapistBO {
                     therapistDTO.getName(),
                     therapistDTO.getSpecialization(),
                     therapistDTO.getContactInfo(),
-                    therapyProgramOpt.get()  // Assign the fetched TherapyProgram entity
+                    therapyProgramOpt.get()
             );
 
             return therapistDAO.save(therapist);
@@ -51,7 +51,7 @@ public class TherapistBOImpl implements TherapistBO {
     @Override
     public boolean updateTherapist(TherapistDTO therapistDTO) {
         try {
-            // Fetch the Therapist entity using the provided ID
+
             Optional<Therapist> optionalTherapist = therapistDAO.findByPK(therapistDTO.getId());
 
             if (!optionalTherapist.isPresent()) {
@@ -59,7 +59,7 @@ public class TherapistBOImpl implements TherapistBO {
                 return false;
             }
 
-            // Fetch the TherapyProgram entity using the provided therapy program ID
+
             Optional<TherapyProgram> therapyProgramOpt = programDAO.findByPK(therapistDTO.getTherapyProgramId());
 
             if (!therapyProgramOpt.isPresent()) {
@@ -67,16 +67,16 @@ public class TherapistBOImpl implements TherapistBO {
                 return false;
             }
 
-            // Retrieve the existing therapist
+
             Therapist therapist = optionalTherapist.get();
 
-            // Update the therapist fields
+
             therapist.setName(therapistDTO.getName());
             therapist.setSpecialization(therapistDTO.getSpecialization());
             therapist.setContactInfo(therapistDTO.getContactInfo());
             therapist.setTherapyProgram(therapyProgramOpt.get());  // Set the new therapy program
 
-            // Save the updated therapist entity
+
             return therapistDAO.update(therapist);
         } catch (Exception e) {
             showErrorAlert("Error while updating therapist: " + e.getMessage());
@@ -139,14 +139,14 @@ public class TherapistBOImpl implements TherapistBO {
         String lastTherapistId = getLastTherapistId();
 
         if (lastTherapistId == null || lastTherapistId.isEmpty()) {
-            return "T001"; // Start from T001 if no records exist
+            return "T001";
         }
 
-        // Extract the numeric part and increment
+
         int numericPart = Integer.parseInt(lastTherapistId.substring(1));
         numericPart++;
 
-        // Format the new ID with leading zeros (e.g., T002, T010, T100)
+
         return String.format("T%03d", numericPart);
     }
 

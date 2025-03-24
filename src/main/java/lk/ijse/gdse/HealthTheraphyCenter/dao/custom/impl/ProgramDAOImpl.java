@@ -128,4 +128,26 @@ public class ProgramDAOImpl implements ProgramDAO {
             return Optional.empty(); // Handle the exception as needed
         }
     }
+
+    @Override
+    public TherapyProgram findById(String programId) throws Exception {
+        Session session = factoryConfiguration.getSession();
+        try {
+            // Retrieve the patient by ID from the database
+            TherapyProgram program = session.get(TherapyProgram.class, programId);
+
+            if (program == null) {
+                throw new Exception("Program with ID " + programId + " not found.");
+            }
+
+            return program;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Error while retrieving patient by ID.", e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
 }

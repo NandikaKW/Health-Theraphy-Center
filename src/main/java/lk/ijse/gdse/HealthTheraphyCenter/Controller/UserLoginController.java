@@ -51,35 +51,35 @@ public class UserLoginController {
     @FXML
     void UserLoginOnAction(ActionEvent event) throws Exception {
         try {
-            validateLogin(event); // Pass event to close the login window properly
+            validateLogin(event);
         } catch (UserLoginException e) {
-            // Handle the custom exception and show an appropriate notification
+
             showNotification(e.getMessage(), "/Asset/icons8-close-100.png");
             clearFields();
         } catch (Exception e) {
-            // Generic exception handling
+
             showNotification("An unexpected error occurred. Please try again.", "/Asset/icons8-close-100.png");
             clearFields();
         }
     }
 
-    // Method to validate user login
+
     private void validateLogin(ActionEvent event) throws Exception {
         String username = NameTxt.getText();
         String password = PasswordTxt.getText();
 
-        // Fetch user details from the database
+
         UserDto user = userBO.getUserByName(username);
 
         if (user == null || user.getUsername() == null) {
             throw new UserLoginException("Error: Username not found or incorrect.");
         } else {
-            // Verify the entered password with the hashed password stored in the database
+
             try {
                 if (!BCrypt.checkpw(password, user.getPassword())) {
                     throw new UserLoginException("Error: Incorrect password.");
                 } else {
-                    // Set the logged-in user's name
+
                     loggedInUserName = user.getUsername(); // Store the username
 
                     // logged user
@@ -100,19 +100,19 @@ public class UserLoginController {
                     createDashboard();
                 }
             } catch (IllegalArgumentException e) {
-                // Handle invalid salt version or corrupted hash
+
                 throw new UserLoginException("Error: Invalid password format. Please contact support.", e);
             }
         }
     }
 
-    // Method to clear login fields
+
     private void clearFields() {
         NameTxt.clear();
         PasswordTxt.clear();
     }
 
-    // Method to create and show the user dashboard
+
     private void createDashboard() throws IOException {
         // Load the dashboard UI
         Stage stage = new Stage();
@@ -131,7 +131,7 @@ public class UserLoginController {
         PasswordTxt.clear();
     }
 
-    // Method to show notifications
+
     private void showNotification(String message, String iconPath) {
         ImageView imageView = new ImageView(new Image(iconPath));
         Notifications.create()
@@ -144,21 +144,21 @@ public class UserLoginController {
                 .show();
     }
 
-    // Method to handle user registration (if needed)
+
     @FXML
     void registerUser(ActionEvent event) throws Exception {
         String username = NameTxt.getText();
         String plainTextPassword = PasswordTxt.getText();
 
-        // Hash the password before saving
+
         String hashedPassword = BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
 
-        // Create a new user DTO
+
         UserDto user = new UserDto();
         user.setUsername(username);
         user.setPassword(hashedPassword);
 
-        // Save the user to the database
+
         boolean isSaved = userBO.saveUser(user);
 
         if (isSaved) {

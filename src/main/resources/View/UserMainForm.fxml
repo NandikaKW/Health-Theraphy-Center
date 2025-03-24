@@ -48,16 +48,21 @@
                   <Font name="Times New Roman Bold" size="23.0" />
                </font>
             </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="22.0" layoutY="388.0" onAction="#patientsprogrambtnOnaction" prefHeight="71.0" prefWidth="195.0" style="-fx-background-color: #B0DFE0;" text="Patients Program">
+               <font>
+                  <Font name="Times New Roman Bold" size="22.0" />
+               </font>
+            </JFXButton>
          </children>
       </Pane>
-      <JFXButton buttonType="RAISED" layoutX="21.0" layoutY="195.0" onAction="#DashboardBtnOnAction" prefHeight="71.0" prefWidth="186.0" style="-fx-background-color: #B0DFE0;" text="Dashboard">
+      <JFXButton buttonType="RAISED" layoutX="17.0" layoutY="177.0" onAction="#DashboardBtnOnAction" prefHeight="71.0" prefWidth="195.0" style="-fx-background-color: #B0DFE0;" text="Dashboard">
          <font>
-            <Font name="Times New Roman Bold" size="30.0" />
+            <Font name="Times New Roman Bold" size="22.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="21.0" layoutY="291.0" onAction="#patientsbtnOnaction" prefHeight="71.0" prefWidth="186.0" style="-fx-background-color: #B0DFE0;" text="Patients">
+      <JFXButton buttonType="RAISED" layoutX="17.0" layoutY="280.0" onAction="#patientsbtnOnaction" prefHeight="71.0" prefWidth="195.0" style="-fx-background-color: #B0DFE0;" text="Patients">
          <font>
-            <Font name="Times New Roman Bold" size="30.0" />
+            <Font name="Times New Roman Bold" size="22.0" />
          </font>
       </JFXButton>
    </children>

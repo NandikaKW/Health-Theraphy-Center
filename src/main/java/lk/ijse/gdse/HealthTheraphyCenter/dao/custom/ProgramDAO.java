@@ -5,4 +5,5 @@ import lk.ijse.gdse.HealthTheraphyCenter.Entity.TherapyProgram;
 import lk.ijse.gdse.HealthTheraphyCenter.dao.CrudDAO;
 
 public interface ProgramDAO extends CrudDAO<TherapyProgram,String> {
+    TherapyProgram findById(String programId) throws Exception;
 }

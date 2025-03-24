@@ -38,7 +38,7 @@ public class ProgramBOImpl implements ProgramBO {
         }
     }
 
-    // Helper method to show error alerts
+
     private void showErrorAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -50,7 +50,7 @@ public class ProgramBOImpl implements ProgramBO {
     @Override
     public boolean updateProgram(ProgramDTO dto) throws Exception {
         try {
-            // Convert DTO to Entity
+
             TherapyProgram therapyProgram = new TherapyProgram(
                     dto.getId(),
                     dto.getName(),
@@ -59,7 +59,7 @@ public class ProgramBOImpl implements ProgramBO {
                     dto.getDescription()
             );
 
-            // Update the therapy program
+
             return programDAO.update(therapyProgram);
         } catch (Exception e) {
             showErrorAlert("Error while updating program: " + e.getMessage());

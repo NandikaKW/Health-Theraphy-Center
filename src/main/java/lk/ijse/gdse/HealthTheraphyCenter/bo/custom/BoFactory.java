@@ -1,10 +1,7 @@
 package lk.ijse.gdse.HealthTheraphyCenter.bo.custom;
 
-import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.impl.PatientBOImpl;
+import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.impl.*;
 import lk.ijse.gdse.HealthTheraphyCenter.bo.SuperBO;
-import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.impl.ProgramBOImpl;
-import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.impl.TherapistBOImpl;
-import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.impl.UserBOImpl;
 
 public class BoFactory {
     public static BoFactory boFactory;
@@ -23,6 +20,7 @@ public class BoFactory {
             case THERAPY_PROGRAMS -> (T) new ProgramBOImpl();
             case THERAPISTS -> (T) new TherapistBOImpl();
             case USER -> (T) new UserBOImpl();
+            case PATIENT_PROGRAM -> (T) new PatientProgramBOImpl();
         };
     }
 }

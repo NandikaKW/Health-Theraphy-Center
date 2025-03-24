@@ -121,4 +121,27 @@ public class PatientDAOImpl implements PatientDAO {
 
         return Optional.ofNullable(lastPk);
     }
+
+
+    @Override
+    public Patient findById(String patientId) throws Exception {
+        Session session = factoryConfiguration.getSession();
+        try {
+            // Retrieve the patient by ID from the database
+            Patient patient = session.get(Patient.class, patientId);
+
+            if (patient == null) {
+                throw new Exception("Patient with ID " + patientId + " not found.");
+            }
+
+            return patient;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Error while retrieving patient by ID.", e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
 }

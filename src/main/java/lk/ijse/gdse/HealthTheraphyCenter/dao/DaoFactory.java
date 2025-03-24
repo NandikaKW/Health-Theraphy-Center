@@ -1,11 +1,6 @@
 package lk.ijse.gdse.HealthTheraphyCenter.dao;
 
-import lk.ijse.gdse.HealthTheraphyCenter.dao.custom.impl.PatientDAOImpl;
-import lk.ijse.gdse.HealthTheraphyCenter.dao.custom.impl.ProgramDAOImpl;
-import lk.ijse.gdse.HealthTheraphyCenter.dao.custom.impl.TherapistDAOImpl;
-import lk.ijse.gdse.HealthTheraphyCenter.dao.custom.impl.UserDAOImpl;
-
-import java.io.IOException;
+import lk.ijse.gdse.HealthTheraphyCenter.dao.custom.impl.*;
 
 public class DaoFactory {
     private static DaoFactory daoFactory;
@@ -27,6 +22,7 @@ public class DaoFactory {
             case THERAPHY_PROGRAM -> (T) new ProgramDAOImpl();
             case THERAPIST -> (T) new TherapistDAOImpl();
             case USER -> (T) new UserDAOImpl();
+            case PATIENT_PROGRAM -> (T) new PatientProgramDAOImpl();
         };
     }
 }

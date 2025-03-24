@@ -151,24 +151,7 @@ public class PatientsFormController implements Initializable {
         String email = txtEmail.getText();
         String history = txtHistory.getText();
 
-//        if (id.isEmpty()) {
-//            showErrorAlert("Select a patient to update.");
-//            return;
-//        }
-//
-//        PatientDTO patientDTO = new PatientDTO(id, contact, email, history, name);
-//        try {
-//            boolean isUpdated = patientBO.updatePatient(patientDTO);
-//            if (isUpdated) {
-//                showSuccessAlert("Patient updated successfully!");
-//                refreshPage();
-//                clearFields();
-//            } else {
-//                showErrorAlert("Failed to update patient.");
-//            }
-//        } catch (Exception e) {
-//            showErrorAlert("Error: " + e.getMessage());
-//        }
+
 
             PatientDTO patientDTO = new PatientDTO(id, contact, email, history, name);
             try {
@@ -207,7 +190,6 @@ public class PatientsFormController implements Initializable {
         refreshTable();
         String nextPatientID=patientBO.generateNextPatientID();
         txtID.setText(nextPatientID);
-
         txtContact.setText("");
         txtEmail.setText("");
         txtHistory.setText("");

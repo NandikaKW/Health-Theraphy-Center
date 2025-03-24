@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="811.0" prefWidth="1194.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.HealthTheraphyCenter.Controller.PatientsProgramsController">
+   <children>
+      <AnchorPane layoutX="21.0" layoutY="11.0" prefHeight="90.0" prefWidth="531.0" style="-fx-background-color: white;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
+         <children>
+            <Label layoutX="60.0" layoutY="24.0" text="Patients Program  Details">
+               <font>
+                  <Font name="Times New Roman Bold" size="40.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label layoutX="38.0" layoutY="180.0" text="Patient ID">
+         <font>
+            <Font name="Times New Roman Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="38.0" layoutY="246.0" text="Program ID">
+         <font>
+            <Font name="Times New Roman Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="38.0" layoutY="316.0" text="Attendance">
+         <font>
+            <Font name="Times New Roman Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="435.0" layoutY="180.0" text="Enroll Date">
+         <font>
+            <Font name="Times New Roman Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="435.0" layoutY="246.0" text="ProgramOutCome">
+         <font>
+            <Font name="Times New Roman Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="435.0" layoutY="316.0" text="Status">
+         <font>
+            <Font name="Times New Roman Bold" size="25.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="ComboPatientID" layoutX="191.0" layoutY="178.0" onAction="#ComboPatientOnAction" prefHeight="39.0" prefWidth="190.0" style="-fx-background-color: white;" />
+      <ComboBox fx:id="ComboProgramID" layoutX="191.0" layoutY="241.0" onAction="#ComboProgramOnAction" prefHeight="39.0" prefWidth="190.0" style="-fx-background-color: white;" />
+      <TextField fx:id="txtAttendance" layoutX="188.0" layoutY="315.0" prefHeight="39.0" prefWidth="198.0" promptText="Attendance">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </TextField>
+      <ComboBox fx:id="ComboYear" layoutX="649.0" layoutY="108.0" onAction="#ComboYearOnAction" prefHeight="38.0" prefWidth="134.0" style="-fx-background-color: white;" />
+      <ComboBox fx:id="CombMonth" layoutX="800.0" layoutY="107.0" onAction="#ComboMonthOnAction" prefHeight="38.0" prefWidth="91.0" style="-fx-background-color: white;" />
+      <ComboBox fx:id="ComboDay" layoutX="905.0" layoutY="108.0" onAction="#ComboDayOnAction" prefHeight="38.0" prefWidth="99.0" style="-fx-background-color: white;" />
+      <TextField fx:id="txtOutCome" layoutX="650.0" layoutY="241.0" prefHeight="39.0" prefWidth="198.0" promptText="OutCome">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtStatus" layoutX="650.0" layoutY="311.0" prefHeight="39.0" prefWidth="198.0" promptText="Status">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </TextField>
+      <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="1072.0" layoutY="130.0" onAction="#btnSaveOnAction" prefHeight="52.0" prefWidth="99.0" style="-fx-background-color: white;" text="Save">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="1072.0" layoutY="196.0" onAction="#btnUpdateOnAction" prefHeight="52.0" prefWidth="99.0" style="-fx-background-color: white;" text="Update">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="1072.0" layoutY="256.0" onAction="#btnDeleteOnAction" prefHeight="52.0" prefWidth="99.0" style="-fx-background-color: white;" text="Delete">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnRefresh" buttonType="RAISED" layoutX="1072.0" layoutY="321.0" onAction="#btnRefreshOnAction" prefHeight="52.0" prefWidth="99.0" style="-fx-background-color: white;" text="Refresh">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </JFXButton>
+      <TableView fx:id="tblPatientProgram" layoutX="35.0" layoutY="417.0" onMouseClicked="#onClickTable" prefHeight="383.0" prefWidth="1045.0">
+        <columns>
+          <TableColumn fx:id="colPatientid" prefWidth="113.59997177124023" text="Patient ID" />
+          <TableColumn fx:id="colProgramid" prefWidth="112.0" text="Program ID" />
+            <TableColumn fx:id="colattendance" prefWidth="136.79998779296875" text="Attendance(Days)" />
+            <TableColumn fx:id="coldate" prefWidth="161.59994506835938" text="Date" />
+            <TableColumn fx:id="coloutcome" prefWidth="192.800048828125" text="ProgramOutCome" />
+            <TableColumn fx:id="colstatus" prefWidth="156.0" text="Status" />
+            <TableColumn fx:id="colPatientProgramID" prefWidth="171.20003662109366" text="PatientProgram ID" />
+        </columns>
+      </TableView>
+      <TextField fx:id="txtDate" layoutX="650.0" layoutY="178.0" prefHeight="39.0" prefWidth="198.0" promptText="Date">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </TextField>
+      <Label layoutX="35.0" layoutY="130.0" text="Patient Program ID">
+         <font>
+            <Font name="Times New Roman Bold" size="25.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtPatientProgramid" layoutX="270.0" layoutY="125.0" prefHeight="39.0" prefWidth="198.0" promptText="ID">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

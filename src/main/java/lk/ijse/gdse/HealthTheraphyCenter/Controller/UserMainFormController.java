@@ -86,6 +86,13 @@ public class UserMainFormController {
         ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
 
     }
+    @FXML
+    void patientsprogrambtnOnaction(ActionEvent event) throws IOException {
+        Node node = (Node) FXMLLoader.load(getClass().getResource("/View/PatientsPrograms.fxml"));
+        CommonAnchore.getChildren().clear();
+        CommonAnchore.getChildren().setAll(node);
+
+    }
 
 
 }

@@ -16,7 +16,7 @@ public class UserBOImpl implements UserBO {
     UserDAO userDAO = DaoFactory.getInstance().getDAO(DaoTypes.USER);
     @Override
     public boolean saveUser(UserDto userDto) throws Exception {
-        String newUserId = generateNewUserId(); // Generate unique ID
+        String newUserId = generateNewUserId();
         userDto.setId(newUserId);
 
         User user = new User(
@@ -31,14 +31,14 @@ public class UserBOImpl implements UserBO {
 
     @Override
     public boolean updateUser(UserDto userDto) {
-        // Convert UserDto to User entity
+
         User user = new User(
                 userDto.getId(),
                 userDto.getEmail(),
                 userDto.getUsername(),
                 userDto.getPassword()
         );
-        // Update the user using DAO
+
         return userDAO.update(user);
     }
 
@@ -53,11 +53,11 @@ public class UserBOImpl implements UserBO {
 
     @Override
     public List<UserDto> getAllUsers() {
-        // Retrieve all users from DAO
+
         List<User> users = userDAO.getAll();
         List<UserDto> userDtos = new ArrayList<>();
 
-        // Convert User entities to UserDto objects
+
         for (User user : users) {
             userDtos.add(new UserDto(
                     user.getId(),
@@ -71,11 +71,11 @@ public class UserBOImpl implements UserBO {
 
     @Override
     public UserDto getUserById(String id) {
-        // Retrieve the user by ID using DAO
+
         Optional<User> optionalUser = userDAO.findByPK(id);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            // Convert User entity to UserDto
+
             return new UserDto(
                     user.getId(),
                     user.getEmail(),
@@ -88,18 +88,18 @@ public class UserBOImpl implements UserBO {
 
     @Override
     public int getUserCount() throws Exception {
-        // Retrieve the total number of users using DAO
+
         return userDAO.getUserCount();
     }
 
     @Override
     public UserDto getUserByName(String username) throws Exception {
-        // Retrieve the user by username using DAO
+
         Optional<User> optionalUser = userDAO.findByUsername(username);
 
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            // Convert User entity to UserDto
+
             return new UserDto(
                     user.getId(),
                     user.getEmail(),
@@ -107,15 +107,15 @@ public class UserBOImpl implements UserBO {
                     user.getPassword()
             );
         }
-        return null; // Return null if user is not found
+        return null;
     }
     private String generateNewUserId() throws Exception {
-        String lastId = userDAO.getLastUserId(); // Fetch last user ID
+        String lastId = userDAO.getLastUserId();
         if (lastId == null) {
-            return "U001"; // Default first ID
+            return "U001";
         } else {
-            int lastNum = Integer.parseInt(lastId.substring(1)); // Extract numeric part
-            return String.format("U%03d", lastNum + 1); // Increment and format as UXXX
+            int lastNum = Integer.parseInt(lastId.substring(1));
+            return String.format("U%03d", lastNum + 1);
         }
     }
 

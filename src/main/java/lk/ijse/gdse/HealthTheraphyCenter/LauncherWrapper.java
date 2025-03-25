@@ -12,7 +12,6 @@ import static javafx.application.Application.launch;
 
 public class LauncherWrapper  {
     public static void main(String[] args) throws Exception {
-
         Launcher.main(args);
 
     }

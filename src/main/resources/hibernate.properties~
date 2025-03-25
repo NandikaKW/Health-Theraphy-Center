@@ -1,6 +1,6 @@
 hibernate.connection.driver_class= com.mysql.cj.jdbc.Driver
 hibernate.dialect= org.hibernate.dialect.MySQLDialect
-hibernate.connection.url= jdbc:mysql://localhost:3306/HealthTheraphyCenter?createDatabaseIfNotExist=true
+hibernate.connection.url= jdbc:mysql://localhost:3306/Health-Theraphy-Center?createDatabaseIfNotExist=true
 hibernate.connection.username= root
 hibernate.connection.password=Ijse@1234
 hibernate.show_sql=true

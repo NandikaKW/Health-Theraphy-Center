@@ -1,0 +1,4 @@
+package lk.ijse.gdse.HealthTheraphyCenter.bo.custom.impl;
+
+public class SessionBOImpl {
+}

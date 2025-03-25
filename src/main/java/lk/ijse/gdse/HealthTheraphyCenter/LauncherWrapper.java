@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import lk.ijse.gdse.HealthTheraphyCenter.Entity.User;
 import org.hibernate.Session;
-
 import java.io.IOException;
 
 import static javafx.application.Application.launch;

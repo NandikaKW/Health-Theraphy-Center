@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="811.0" prefWidth="1194.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.HealthTheraphyCenter.Controller.PaymentController">
+   <children>
+      <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="90.0" prefWidth="540.0" style="-fx-background-color: white;" styleClass="shadow" stylesheets="@../../../../../../Videos/Health-Theraphy-Center-Transaction/Health-Theraphy-Center-master/src/main/resources/Style/Shadow.css">
+         <children>
+            <Label layoutX="118.0" layoutY="22.0" text="Payment Details">
+               <font>
+                  <Font name="Times New Roman Bold" size="40.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label layoutX="41.0" layoutY="146.0" text="Payment ID">
+         <font>
+            <Font name="Times New Roman Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="466.0" layoutY="207.0" text="Date">
+         <font>
+            <Font name="Times New Roman Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="466.0" layoutY="146.0" text="Amount">
+         <font>
+            <Font name="Times New Roman Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="41.0" layoutY="207.0" text="Session ID">
+         <font>
+            <Font name="Times New Roman Bold" size="25.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cmbSession" layoutX="219.0" layoutY="202.0" prefHeight="39.0" prefWidth="194.0" />
+      <TextField fx:id="txtid" layoutX="219.0" layoutY="141.0" prefHeight="39.0" prefWidth="194.0" promptText="ID">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtAmount" layoutX="573.0" layoutY="141.0" prefHeight="39.0" prefWidth="241.0" promptText="Amount">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </TextField>
+      <Label fx:id="lblDate" layoutX="572.0" layoutY="207.0" prefHeight="29.0" prefWidth="242.0">
+         <font>
+            <Font name="Times New Roman Bold" size="25.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="967.0" layoutY="132.0" onAction="#btnSaveOnAction" prefHeight="56.0" prefWidth="95.0" style="-fx-background-color: white;" text="Save">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="1090.0" layoutY="132.0" onAction="#btnDeleteOnAction" prefHeight="56.0" prefWidth="95.0" style="-fx-background-color: white;" text="Delete">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="967.0" layoutY="207.0" onAction="#btnUpdateOnAction" prefHeight="56.0" prefWidth="95.0" style="-fx-background-color: white;" text="Update">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnRefresh" buttonType="RAISED" layoutX="1090.0" layoutY="207.0" onAction="#btnRefreshOnAction" prefHeight="56.0" prefWidth="95.0" style="-fx-background-color: white;" text="Refresh">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </JFXButton>
+      <TableView fx:id="tblPayments" layoutX="34.0" layoutY="325.0" onMouseClicked="#onClickTable" prefHeight="461.0" prefWidth="1078.0">
+        <columns>
+          <TableColumn fx:id="colID" prefWidth="218.39995956420898" text="Payemnt ID" />
+          <TableColumn fx:id="colDate" prefWidth="226.4000701904297" text="Payment Date" />
+            <TableColumn fx:id="colAmount" prefWidth="297.6000061035156" text="Amount" />
+            <TableColumn fx:id="colSessionID" prefWidth="335.2000732421875" text="Session ID" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "payments")
-public class Payment {
+public class Payment implements SuperEntity {
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
@@ -20,7 +20,7 @@ public class Payment {
     private double amount; // Fee for the therapy program
 
     @Column(nullable = false)
-    private Date paymentDate;
+    private String paymentDate;
 
     @Column(nullable = false)
     private String status; // "Pending" or "Completed"

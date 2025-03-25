@@ -102,5 +102,19 @@ public class MainController {
         ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
 
     }
+    @FXML
+    void TherapySessionBtnOnAction(ActionEvent event) throws IOException {
+        Node node = (Node) FXMLLoader.load(getClass().getResource("/View/TherapySessions.fxml"));
+        CommonAnchore.getChildren().clear();
+        CommonAnchore.getChildren().setAll(node);
+
+    }
+    @FXML
+    void PaymentBtnOnAction(ActionEvent event) throws IOException {
+        Node node = (Node) FXMLLoader.load(getClass().getResource("/View/Payment.fxml"));
+        CommonAnchore.getChildren().clear();
+        CommonAnchore.getChildren().setAll(node);
+
+    }
 
 }

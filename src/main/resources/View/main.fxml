@@ -48,6 +48,16 @@
                   <Font name="Times New Roman Bold" size="25.0" />
                </font>
             </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="536.0" onAction="#TherapySessionBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #B0DFE0;" text="Sessions">
+               <font>
+                  <Font name="Times New Roman Bold" size="30.0" />
+               </font>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="629.0" onAction="#PaymentBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #B0DFE0;" text="Payments">
+               <font>
+                  <Font name="Times New Roman Bold" size="30.0" />
+               </font>
+            </JFXButton>
          </children>
       </Pane>
       <JFXButton buttonType="RAISED" layoutX="10.0" layoutY="176.0" onAction="#DashboardBtnOnAction" prefHeight="68.0" prefWidth="189.0" style="-fx-background-color: #B0DFE0;" text="Dashboard">

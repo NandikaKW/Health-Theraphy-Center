@@ -11,13 +11,14 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "therapy_sessions")
-public class TherapySession {
+public class TherapySession implements SuperEntity {
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-    private Date sessionDate;
+    private String sessionDate;
     private String sessionNotes;
+    private String status;
 
     @ManyToOne
     @JoinColumn(name = "patient_id", nullable = false)
@@ -35,7 +36,18 @@ public class TherapySession {
     @OneToOne(mappedBy = "therapySession", cascade = CascadeType.ALL, orphanRemoval = true)
     private Payment payment;
 
-
+    @Override
+    public String toString() {
+        return "TherapySession{" +
+                "id='" + id + '\'' +
+                ", sessionDate=" + sessionDate +
+                ", sessionNotes='" + sessionNotes + '\'' +
+                ", status='" + status + '\'' +
+                ", patient=" + (patient != null ? patient.getId() : null) +
+                ", therapyProgram=" + (therapyProgram != null ? therapyProgram.getId() : null) +
+                ", therapist=" + (therapist != null ? therapist.getId() : null) +
+                '}';
+    }
 
 
 

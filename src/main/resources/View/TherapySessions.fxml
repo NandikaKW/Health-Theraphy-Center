@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="811.0" prefWidth="1194.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.HealthTheraphyCenter.Controller.TherapySessionsController">
    <children>
       <AnchorPane layoutX="14.0" layoutY="22.0" prefHeight="90.0" prefWidth="540.0" style="-fx-background-color: white;" styleClass="shadow" stylesheets="@../../../../../../Videos/Health-Theraphy-Center-Transaction/Health-Theraphy-Center-master/src/main/resources/Style/Shadow.css">
@@ -24,40 +23,46 @@
       </AnchorPane>
       <Label layoutX="34.0" layoutY="152.0" text="Session ID">
          <font>
-            <Font name="Times New Roman Bold" size="25.0" />
+            <Font name="Times New Roman Bold" size="27.0" />
          </font>
       </Label>
       <Label layoutX="34.0" layoutY="275.0" text="Session Date">
          <font>
-            <Font name="Times New Roman Bold" size="25.0" />
+            <Font name="Times New Roman Bold" size="27.0" />
          </font>
       </Label>
       <Label layoutX="506.0" layoutY="278.0" text="Program">
          <font>
-            <Font name="Times New Roman Bold" size="25.0" />
+            <Font name="Times New Roman Bold" size="27.0" />
          </font>
       </Label>
       <Label layoutX="506.0" layoutY="215.0" text="Therapist">
          <font>
-            <Font name="Times New Roman Bold" size="25.0" />
+            <Font name="Times New Roman Bold" size="27.0" />
          </font>
       </Label>
       <Label layoutX="512.0" layoutY="152.0" text="Patient ">
          <font>
-            <Font name="Times New Roman Bold" size="25.0" />
+            <Font name="Times New Roman Bold" size="27.0" />
          </font>
       </Label>
       <Label layoutX="34.0" layoutY="212.0" text="Notes">
          <font>
-            <Font name="Times New Roman Bold" size="25.0" />
+            <Font name="Times New Roman Bold" size="27.0" />
          </font>
       </Label>
-      <TextField fx:id="txtid" layoutX="190.0" layoutY="144.0" prefHeight="46.0" prefWidth="231.0" />
-      <TextField fx:id="txtNotes" layoutX="190.0" layoutY="203.0" prefHeight="46.0" prefWidth="231.0" />
-      <DatePicker fx:id="datePicker" layoutX="190.0" layoutY="267.0" prefHeight="46.0" prefWidth="231.0" />
-      <ComboBox fx:id="cmbPatient" layoutX="635.0" layoutY="143.0" onAction="#cmbPatientOnAction" prefHeight="46.0" prefWidth="196.0" />
-      <ComboBox fx:id="cmbTherapist" layoutX="639.0" layoutY="207.0" onAction="#cmbTherapistOnAction" prefHeight="46.0" prefWidth="196.0" />
-      <ComboBox fx:id="cmbProgram" layoutX="639.0" layoutY="270.0" onAction="#cmbProgramOnAction" prefHeight="46.0" prefWidth="196.0" />
+      <TextField fx:id="txtid" layoutX="190.0" layoutY="144.0" prefHeight="46.0" prefWidth="231.0" promptText="ID">
+         <font>
+            <Font name="Times New Roman Bold" size="25.0" />
+         </font></TextField>
+      <TextField fx:id="txtNotes" layoutX="190.0" layoutY="203.0" prefHeight="46.0" prefWidth="231.0" promptText="Notes">
+         <font>
+            <Font name="Times New Roman Bold" size="25.0" />
+         </font></TextField>
+      <DatePicker fx:id="datePicker" layoutX="190.0" layoutY="267.0" prefHeight="46.0" prefWidth="231.0" style="-fx-background-color: white;" />
+      <ComboBox fx:id="cmbPatient" layoutX="637.0" layoutY="143.0" onAction="#cmbPatientOnAction" prefHeight="46.0" prefWidth="196.0" style="-fx-background-color: white;" />
+      <ComboBox fx:id="cmbTherapist" layoutX="639.0" layoutY="207.0" onAction="#cmbTherapistOnAction" prefHeight="46.0" prefWidth="196.0" style="-fx-background-color: white;" />
+      <ComboBox fx:id="cmbProgram" layoutX="639.0" layoutY="270.0" onAction="#cmbProgramOnAction" prefHeight="46.0" prefWidth="196.0" style="-fx-background-color: white;" />
       <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="923.0" layoutY="339.0" onAction="#btnSaveOnAction" prefHeight="54.0" prefWidth="122.0" style="-fx-background-color: white;" text="Save">
          <font>
             <Font name="Times New Roman Bold" size="23.0" />

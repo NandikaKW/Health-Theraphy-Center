@@ -22,12 +22,12 @@
       </AnchorPane>
       <TextField fx:id="NameTxt" layoutX="105.0" layoutY="116.0" prefHeight="54.0" prefWidth="318.0" promptText="Enter Your Name">
          <font>
-            <Font name="Times New Roman Bold" size="20.0" />
+            <Font name="Times New Roman Bold" size="23.0" />
          </font>
       </TextField>
-      <PasswordField fx:id="PasswordTxt" layoutX="105.0" layoutY="192.0" prefHeight="54.0" prefWidth="318.0" promptText="Enter Your Password">
+      <PasswordField fx:id="PasswordTxt" layoutX="105.0" layoutY="191.0" prefHeight="54.0" prefWidth="318.0" promptText="Enter Your Password">
          <font>
-            <Font name="Times New Roman Bold" size="20.0" />
+            <Font name="Times New Roman Bold" size="23.0" />
          </font>
       </PasswordField>
       <ImageView fitHeight="412.0" fitWidth="462.0" layoutX="27.0" layoutY="252.0" pickOnBounds="true" preserveRatio="true">

@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="811.0" prefWidth="1194.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.HealthTheraphyCenter.Controller.PaymentController">
    <children>
       <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="90.0" prefWidth="540.0" style="-fx-background-color: white;" styleClass="shadow" stylesheets="@../../../../../../Videos/Health-Theraphy-Center-Transaction/Health-Theraphy-Center-master/src/main/resources/Style/Shadow.css">
@@ -21,7 +20,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <Label layoutX="41.0" layoutY="146.0" text="Payment ID">
+      <Label layoutX="41.0" layoutY="148.0" text="Payment ID">
          <font>
             <Font name="Times New Roman Bold" size="25.0" />
          </font>
@@ -42,14 +41,14 @@
          </font>
       </Label>
       <ComboBox fx:id="cmbSession" layoutX="219.0" layoutY="202.0" prefHeight="39.0" prefWidth="194.0" />
-      <TextField fx:id="txtid" layoutX="219.0" layoutY="141.0" prefHeight="39.0" prefWidth="194.0" promptText="ID">
+      <TextField fx:id="txtid" layoutX="219.0" layoutY="141.0" prefHeight="46.0" prefWidth="194.0" promptText="ID">
          <font>
-            <Font name="Times New Roman Bold" size="20.0" />
+            <Font name="Times New Roman Bold" size="22.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtAmount" layoutX="573.0" layoutY="141.0" prefHeight="39.0" prefWidth="241.0" promptText="Amount">
+      <TextField fx:id="txtAmount" layoutX="573.0" layoutY="141.0" prefHeight="46.0" prefWidth="194.0" promptText="Amount">
          <font>
-            <Font name="Times New Roman Bold" size="20.0" />
+            <Font name="Times New Roman Bold" size="22.0" />
          </font>
       </TextField>
       <Label fx:id="lblDate" layoutX="572.0" layoutY="207.0" prefHeight="29.0" prefWidth="242.0">

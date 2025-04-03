@@ -40,7 +40,7 @@
             <Font name="Times New Roman Bold" size="25.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cmbSession" layoutX="219.0" layoutY="202.0" prefHeight="39.0" prefWidth="194.0" />
+      <ComboBox fx:id="cmbSession" layoutX="219.0" layoutY="202.0" prefHeight="39.0" prefWidth="194.0" style="-fx-background-color: white;" />
       <TextField fx:id="txtid" layoutX="219.0" layoutY="141.0" prefHeight="46.0" prefWidth="194.0" promptText="ID">
          <font>
             <Font name="Times New Roman Bold" size="22.0" />
@@ -76,7 +76,7 @@
             <Font name="Times New Roman Bold" size="20.0" />
          </font>
       </JFXButton>
-      <TableView fx:id="tblPayments" layoutX="34.0" layoutY="325.0" onMouseClicked="#onClickTable" prefHeight="461.0" prefWidth="1078.0">
+      <TableView fx:id="tblPayments" layoutX="58.0" layoutY="323.0" onMouseClicked="#onClickTable" prefHeight="461.0" prefWidth="1078.0">
         <columns>
           <TableColumn fx:id="colID" prefWidth="218.39995956420898" text="Payemnt ID" />
           <TableColumn fx:id="colDate" prefWidth="226.4000701904297" text="Payment Date" />

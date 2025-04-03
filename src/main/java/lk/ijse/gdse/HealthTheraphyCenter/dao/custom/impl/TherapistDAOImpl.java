@@ -34,7 +34,6 @@ public class TherapistDAOImpl implements TherapistDAO {
                 alert.showAndWait();
                 return false;
             }
-
             session.persist(therapist);
             transaction.commit();
             return true;
@@ -48,60 +47,36 @@ public class TherapistDAOImpl implements TherapistDAO {
         }
     }
 
+
     @Override
     public boolean update(Therapist therapist) {
-        Transaction transaction = null;
-        try (Session session = factoryConfiguration.getSession()) {
-            // Begin the transaction
-            transaction = session.beginTransaction();
-
-            // Retrieve the existing therapist from the database by ID
-            Therapist existingTherapist = session.get(Therapist.class, therapist.getId());
-
-            // Check if the therapist exists
-            if (existingTherapist != null) {
-                // Update the therapist's fields
-                existingTherapist.setName(therapist.getName());
-                existingTherapist.setSpecialization(therapist.getSpecialization());
-                existingTherapist.setContactInfo(therapist.getContactInfo());
-                existingTherapist.setTherapyProgram(therapist.getTherapyProgram()); // Update therapy program
-
-                // Save the updated therapist
-                session.update(existingTherapist);
-                transaction.commit();
-                return true;
-            } else {
-                // If therapist doesn't exist, return false
-                return false;
-            }
+        Session session = factoryConfiguration.getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.update(therapist);
+            transaction.commit();
+            return true;
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
+            transaction.rollback();
             return false;
         }
 
     }
-
     @Override
     public boolean deleteByPK(String pk) throws Exception {
-        Transaction transaction = null;
-        try (Session session = factoryConfiguration.getSession()) {
-            transaction = session.beginTransaction();
-            Therapist therapist = session.get(Therapist.class, pk);
-            if (therapist != null) {
-                session.delete(therapist);
-                transaction.commit();
-                return true;
-            }
-            transaction.rollback();
-            return false;
-        } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
-            e.printStackTrace();
-            return false;
+        Session session = factoryConfiguration.getSession();
+        Transaction transaction = session.beginTransaction();
+        Therapist therapist = session.get(Therapist.class, pk);
+        if (therapist != null) {
+            session.delete(therapist);
+            transaction.commit();
+            return true;
         }
+        transaction.rollback();
+        return false;
+
+
+
     }
 
     @Override
@@ -110,6 +85,7 @@ public class TherapistDAOImpl implements TherapistDAO {
             Query<Therapist> query = session.createQuery("FROM Therapist", Therapist.class);
             return query.list();
         }
+
     }
 
     @Override

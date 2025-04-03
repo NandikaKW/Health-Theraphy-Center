@@ -35,14 +35,14 @@ public class RegisterFormController {
         String plainTextPassword = PasswordTxt.getText();
         String email = EmailTxt.getText();
 
-        // Hash the password before saving
+
         String hashedPassword = BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
 
         try {
-            // Create a new user DTO with the hashed password
+
             UserDto userDto = new UserDto(null, email, name, hashedPassword);
 
-            // Save the user to the database
+
             boolean isSaved = userBO.saveUser(userDto);
 
             if (isSaved) {

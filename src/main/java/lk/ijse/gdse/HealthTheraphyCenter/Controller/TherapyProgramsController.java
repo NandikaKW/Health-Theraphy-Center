@@ -210,6 +210,6 @@ public class TherapyProgramsController implements Initializable {
     }
     private void  GenerateNextId() throws Exception {
         String nextProgramID = programBO.generateNextTherapyProgramID();
-        txtid.setText(nextProgramID); // Set the next program ID first
+        txtid.setText(nextProgramID);
     }
 }

@@ -23,38 +23,29 @@ public class PatientProgramBOImpl implements PatientProgramBO {
 
     @Override
     public boolean savePatientProgram(PatientProgramDTO patientProgramDTO) throws Exception {
-
-        try {
-
-            Patient patient = patientDAO.findById(patientProgramDTO.getPatientId());
-            if (patient == null) {
-                throw new IllegalArgumentException("Invalid Patient ID");
-            }
-
-
-            TherapyProgram therapyProgram = programDAO.findById(patientProgramDTO.getProgramId());
-            if (therapyProgram == null) {
-                throw new IllegalArgumentException("Invalid Program ID");
-            }
-
-
-            PatientProgramDetail patientProgramDetail = new PatientProgramDetail(
-                    patientProgramDTO.getId(),
-                    patient,
-                    therapyProgram,
-                    patientProgramDTO.getEnrollmentDate(),
-                    patientProgramDTO.getStatus(),
-                    patientProgramDTO.getAttendance(),
-                    patientProgramDTO.getProgramOutcome()
-            );
-
-
-            return patientProgramDAO.save(patientProgramDetail);
+        try{
+          Patient patient = patientDAO.findById(patientProgramDTO.getPatientId());
+          if (patient == null) {
+              throw new IllegalArgumentException("Invalid Patient ID");
+          }
+          TherapyProgram therapyProgram = programDAO.findById(patientProgramDTO.getProgramId());
+          if (therapyProgram == null) {
+              throw new IllegalArgumentException("Invalid Program ID");
+          }
+          PatientProgramDetail patientProgramDetail=new PatientProgramDetail(
+                  patientProgramDTO.getId(),
+                  patient,
+                  therapyProgram,
+                  patientProgramDTO.getEnrollmentDate(),
+                  patientProgramDTO.getStatus(),
+                  patientProgramDTO.getAttendance(),
+                  patientProgramDTO.getProgramOutcome()
+          );
+          return patientProgramDAO.save(patientProgramDetail);
 
         } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+          throw new RuntimeException(e);
+      }
     }
 
     @Override

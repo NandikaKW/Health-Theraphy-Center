@@ -38,16 +38,16 @@ public class UserLoginController {
     public static String loggedInUserName;
     UserBO userBO = BoFactory.getInstance().getBO(BoTypes.USER);
 
-    // Method to handle user registration
+
     @FXML
     void RegisterBtnOnAction(ActionEvent event) throws IOException {
-        // Load the Register Form in the AnchorPane
+
         Node node = FXMLLoader.load(getClass().getResource("/View/RegisterForm.fxml"));
         UserAnchore.getChildren().clear();
         UserAnchore.getChildren().setAll(node);
     }
 
-    // Method to handle user login
+
     @FXML
     void UserLoginOnAction(ActionEvent event) throws Exception {
         try {

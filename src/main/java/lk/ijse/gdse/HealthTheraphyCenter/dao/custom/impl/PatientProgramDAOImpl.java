@@ -30,8 +30,8 @@ public class PatientProgramDAOImpl implements PatientProgramDAO {
         } finally {
             session.close();
         }
-    }
 
+    }
     @Override
     public boolean update(PatientProgramDetail patientProgramDetail) {
         Session session = factoryConfiguration.getSession();

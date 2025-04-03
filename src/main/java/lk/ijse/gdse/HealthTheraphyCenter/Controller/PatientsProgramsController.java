@@ -175,14 +175,14 @@ public class PatientsProgramsController implements Initializable {
             txtOutCome.setText(selectedItem.getProgramOutcome());
             txtStatus.setText(selectedItem.getStatus());
 
-            // Set enrollment date in combo boxes
-            String enrollmentDate = selectedItem.getEnrollmentDate(); // Enrollment date as String
-            String[] dateParts = enrollmentDate.split("-"); // Assuming the date format is "yyyy-MM-dd"
+
+            String enrollmentDate = selectedItem.getEnrollmentDate();
+            String[] dateParts = enrollmentDate.split("-");
 
             if (dateParts.length == 3) {
-                ComboYear.setValue(Integer.parseInt(dateParts[0]));  // Set Year
-                CombMonth.setValue(Integer.parseInt(dateParts[1])); // Set Month
-                ComboDay.setValue(Integer.parseInt(dateParts[2]));   // Set Day
+                ComboYear.setValue(Integer.parseInt(dateParts[0]));
+                CombMonth.setValue(Integer.parseInt(dateParts[1]));
+                ComboDay.setValue(Integer.parseInt(dateParts[2]));
             }
         }
 
@@ -224,43 +224,37 @@ public class PatientsProgramsController implements Initializable {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) throws Exception {
-        try {
-            String id = txtPatientProgramid.getText();
-            String patientId = ComboPatientID.getValue();
-            String programId = ComboProgramID.getValue();
-            int attendance = Integer.parseInt(txtAttendance.getText().trim());
-            String programOutcome = txtOutCome.getText().trim();
-            String status = txtStatus.getText().trim();
+        try{
+            String id=txtPatientProgramid.getText();
+            String patientId=ComboPatientID.getValue();
+            String programId=ComboProgramID.getValue();
+            int attendance=Integer.parseInt(txtAttendance.getText().trim());
+            String programOutcome=txtOutCome.getText().trim();
+            String status=txtStatus.getText().trim();
 
-            if (ComboYear.getValue() == null || CombMonth.getValue() == null || ComboDay.getValue() == null) {
-                new Alert(Alert.AlertType.WARNING, "Please select a valid date!").show();
+            if (ComboYear.getValue()==null || CombMonth.getValue()==null || ComboDay.getValue()==null){
+                new Alert(Alert.AlertType.WARNING,"Please select a valid date!").show();
                 return;
             }
-
-            String enrollmentDate = ComboYear.getValue() + "-" + CombMonth.getValue() + "-" + ComboDay.getValue();
-
-            PatientProgramDTO patientProgramDTO = new PatientProgramDTO(
-                    id, patientId, programId, enrollmentDate, status, attendance, programOutcome
-            );
+            String enrollmentDate=ComboYear.getValue()+"-"+CombMonth.getValue()+"-"+ComboDay.getValue();
+            PatientProgramDTO patientProgramDTO=new PatientProgramDTO(id,patientId,programId,enrollmentDate,status,attendance,programOutcome);
 
             boolean isSaved = patientProgramBO.savePatientProgram(patientProgramDTO);
-
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "Patient Program Saved Successfully!").show();
                 loadAllPatientPrograms();
                 clearFields();
                 GenerateNextPatientProgramId();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Failed to Save Patient Program!").show();
+            }else{
+                new Alert(Alert.AlertType.ERROR,"Failed to Save Patient Program!").show();
             }
 
         } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.ERROR, "Invalid attendance input. Please enter a number!").show();
+            new Alert(Alert.AlertType.ERROR, "Please enter valid values for Attendance and Program Outcome.").show();
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "An error occurred: " + e.getMessage()).show();
+            new Alert(Alert.AlertType.ERROR, "An error occurred while saving the Patient Program. Please try again later.").show();
             e.printStackTrace();
         }
-
     }
 
     @FXML
@@ -294,8 +288,8 @@ public class PatientsProgramsController implements Initializable {
 
             if (isUpdated) {
                 new Alert(Alert.AlertType.INFORMATION, "Patient Program Updated Successfully!").show();
-                loadAllPatientPrograms(); // Refresh table
-                clearFields(); // Clear input fields
+                loadAllPatientPrograms();
+                clearFields();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to Update Patient Program!").show();
             }

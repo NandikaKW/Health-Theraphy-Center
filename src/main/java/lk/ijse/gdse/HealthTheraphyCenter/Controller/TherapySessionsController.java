@@ -127,10 +127,10 @@ public class TherapySessionsController implements Initializable {
             sessionDTO.setProgramId(cmbProgram.getValue());
             sessionDTO.setNotes(txtNotes.getText());
 
-            // Convert LocalDate to Date
+
             Date selectedDate = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-            // Format Date to String (yyyy-MM-dd)
+
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String formattedDate = sdf.format(selectedDate);
 
@@ -163,10 +163,10 @@ public class TherapySessionsController implements Initializable {
             sessionDTO.setProgramId(cmbProgram.getValue());
             sessionDTO.setNotes(txtNotes.getText());
 
-            // Convert LocalDate to Date
+
             Date selectedDate = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-            // Format Date to String (yyyy-MM-dd)
+
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String formattedDate = sdf.format(selectedDate);
 
@@ -234,11 +234,11 @@ public class TherapySessionsController implements Initializable {
             txtid.setText(selectedSession.getId());
             txtNotes.setText(selectedSession.getNotes());
 
-            // Convert String date to LocalDate
+
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate parsedDate = LocalDate.parse(selectedSession.getDate(), formatter);
 
-            datePicker.setValue(parsedDate); // Set LocalDate to datePicker
+            datePicker.setValue(parsedDate);
             cmbPatient.setValue(selectedSession.getPatientId());
             cmbTherapist.setValue(selectedSession.getTherapistId());
             cmbProgram.setValue(selectedSession.getProgramId());

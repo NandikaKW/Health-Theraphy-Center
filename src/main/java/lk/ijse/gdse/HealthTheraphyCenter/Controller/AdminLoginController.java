@@ -37,10 +37,10 @@ public class AdminLoginController {
 
         try {
             if (UserName.equals(enteredUsername)) {
-                // Verify the entered password with the hashed one
+
                 if (BCrypt.checkpw(enteredPassword, PasswordHash)) {
                     clearFields();
-                    createdashboard(event); // Pass event to close login window properly
+                    createdashboard(event);
                 } else {
                     throw new LoginException("Error: Incorrect password.");
                 }

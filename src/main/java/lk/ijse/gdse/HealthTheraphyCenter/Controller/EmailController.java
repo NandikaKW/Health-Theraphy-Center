@@ -39,12 +39,12 @@ public class EmailController {
             return;
         }
 
-        // Run the email sending in a background thread
+
         new Thread(() -> {
             try {
                 sendEmailWithGmail(FROM, customerEmail, subject, body);
 
-                // Show success alert on JavaFX UI thread
+
                 javafx.application.Platform.runLater(() -> {
                     new Alert(Alert.AlertType.INFORMATION, "Email sent successfully!").show();
                     txtBody.clear();

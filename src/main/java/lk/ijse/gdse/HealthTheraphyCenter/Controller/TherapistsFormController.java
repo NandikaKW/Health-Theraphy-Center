@@ -12,6 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.gdse.HealthTheraphyCenter.Entity.Therapist;
 import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.*;
 import lk.ijse.gdse.HealthTheraphyCenter.dto.TherapistDTO;
 import lk.ijse.gdse.HealthTheraphyCenter.dto.tm.TherapistTM;
@@ -76,18 +77,18 @@ public class TherapistsFormController implements Initializable {
             showErrorAlert("Please select a therapist to delete.");
             return;
         }
-        try {
+        try{
             boolean isDeleted = therapistBO.deleteTherapist(therapistId);
             if (isDeleted) {
-                showSuccessAlert("Therapist deleted successfully.");
                 refreshTable();
                 clearFields();
                 GenerateNextTherapistId();
-            } else {
-                showErrorAlert("Failed to delete therapist.");
+                showSuccessAlert("Therapist deleted successfully.");
             }
+
         } catch (Exception e) {
-            showErrorAlert("Error: " + e.getMessage());
+            showErrorAlert("Error deleting therapist: " + e.getMessage());
+
         }
 
     }
@@ -114,6 +115,7 @@ public class TherapistsFormController implements Initializable {
         } catch (Exception e) {
             showErrorAlert("Error loading therapist data: " + e.getMessage());
         }
+
 
     }
 
@@ -145,7 +147,6 @@ public class TherapistsFormController implements Initializable {
             showErrorAlert("Error: " + e.getMessage());
         }
     }
-
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
         String id = txtID.getText();
@@ -172,6 +173,8 @@ public class TherapistsFormController implements Initializable {
         } catch (Exception e) {
             showErrorAlert("Error: " + e.getMessage());
         }
+
+
 
     }
 

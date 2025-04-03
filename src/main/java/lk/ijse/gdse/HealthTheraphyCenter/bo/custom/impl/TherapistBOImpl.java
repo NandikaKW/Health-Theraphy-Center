@@ -48,6 +48,7 @@ public class TherapistBOImpl implements TherapistBO {
         }
     }
 
+
     @Override
     public boolean updateTherapist(TherapistDTO therapistDTO) {
         try {
@@ -66,11 +67,7 @@ public class TherapistBOImpl implements TherapistBO {
                 showErrorAlert("Error: Therapy Program with ID " + therapistDTO.getTherapyProgramId() + " not found.");
                 return false;
             }
-
-
             Therapist therapist = optionalTherapist.get();
-
-
             therapist.setName(therapistDTO.getName());
             therapist.setSpecialization(therapistDTO.getSpecialization());
             therapist.setContactInfo(therapistDTO.getContactInfo());
@@ -83,18 +80,16 @@ public class TherapistBOImpl implements TherapistBO {
             return false;
         }
 
+
     }
 
     @Override
     public boolean deleteTherapist(String therapistId) {
-        try (Session session = FactoryConfiguration.getInstance().getSession()) {
-            Transaction transaction = session.beginTransaction();
-            boolean result = therapistDAO.deleteByPK(therapistId);
-            transaction.commit();
-            return result;
+        try {
+            therapistDAO.deleteByPK(therapistId);
+            return true;
         } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            throw new RuntimeException(e);
         }
     }
 
@@ -120,6 +115,7 @@ public class TherapistBOImpl implements TherapistBO {
                 t.getSpecialization(),
                 (t.getTherapyProgram() != null) ? t.getTherapyProgram().getId() : null
         )).collect(Collectors.toList());
+
     }
 
     @Override

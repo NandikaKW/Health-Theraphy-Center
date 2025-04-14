@@ -121,10 +121,45 @@ public class PatientsFormController implements Initializable {
         String email = txtEmail.getText();
         String history = txtHistory.getText();
 
-        if (id.isEmpty() || name.isEmpty()) {
-            showErrorAlert("Patient ID and Name are required.");
-            return;
+
+        String idPattern = "^P\\d{3}$"; // Example: P001
+        String namePattern = "^[A-Za-z\\s]{3,50}$";
+        String contactPattern = "^(\\+94|0)?\\d{9}$"; // Sri Lankan contact number
+        String emailPattern = "^[\\w.-]+@[\\w.-]+\\.\\w{2,}$";
+        String historyPattern = "^[\\w\\s,.#-]{0,255}$"; // Optional but limited to 255 chars
+
+
+        boolean isValidId = id.matches(idPattern);
+        boolean isValidName = name.matches(namePattern);
+        boolean isValidContact = contact.matches(contactPattern);
+        boolean isValidEmail = email.matches(emailPattern);
+        boolean isValidHistory = history.matches(historyPattern);
+
+        resetFieldStyles();
+
+        if (!isValidId) {
+            txtID.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Patient ID. Format should be 'Pxxx'.");
         }
+        if (!isValidName) {
+            txtName.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Name. Only letters and spaces allowed (3-50 characters).");
+        }
+        if (!isValidContact) {
+            txtContact.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Contact Number.");
+        }
+        if (!isValidEmail) {
+            txtEmail.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Email address.");
+        }
+        if (!isValidHistory) {
+            txtHistory.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid History format.");
+        }
+
+        if (!isValidId || !isValidName || !isValidContact || !isValidEmail || !isValidHistory) return;
+
 
         PatientDTO patientDTO = new PatientDTO(id, contact, email, history, name);
         try {
@@ -140,8 +175,15 @@ public class PatientsFormController implements Initializable {
         } catch (Exception e) {
             showErrorAlert("Error: " + e.getMessage());
         }
-
     }
+    private void resetFieldStyles() {
+        txtID.setStyle(null);
+        txtName.setStyle(null);
+        txtContact.setStyle(null);
+        txtEmail.setStyle(null);
+        txtHistory.setStyle(null);
+    }
+
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
@@ -151,24 +193,65 @@ public class PatientsFormController implements Initializable {
         String email = txtEmail.getText();
         String history = txtHistory.getText();
 
+        // Regex Patterns
+        String idPattern = "^P\\d{3}$";  // Example: P001, P999
+        String namePattern = "^[A-Za-z\\s]+$";
+        String contactPattern = "^(07\\d{8})$";  // Example: 0771234567
+        String emailPattern = "^[\\w.-]+@[\\w.-]+\\.\\w{2,}$";
+        String historyPattern = "^[\\w\\s,.#-]*$";  // Optional field
 
+        // Reset field styles
+        resetFieldStyles();
 
-            PatientDTO patientDTO = new PatientDTO(id, contact, email, history, name);
-            try {
-                boolean isUpdated = patientBO.updatePatient(patientDTO);
-                if (isUpdated) {
-                    showSuccessAlert("Patient updated successfully!");
-                    refreshPage();
-                    clearFields();
-                } else {
-                    showErrorAlert("Failed to update patient.");
-                }
-            } catch (Exception e) {
-                showErrorAlert("Error: " + e.getMessage());
+        boolean isValid = true;
+
+        if (!id.matches(idPattern)) {
+            txtID.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid ID. Format should be Pxxx (e.g., P001)");
+            isValid = false;
+        }
+
+        if (!name.matches(namePattern)) {
+            txtName.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Name. Only letters and spaces are allowed.");
+            isValid = false;
+        }
+
+        if (!contact.matches(contactPattern)) {
+            txtContact.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Contact. Format should be like 0771234567.");
+            isValid = false;
+        }
+
+        if (!email.matches(emailPattern)) {
+            txtEmail.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Email format.");
+            isValid = false;
+        }
+
+        if (!history.matches(historyPattern)) {
+            txtHistory.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid History. Avoid special characters.");
+            isValid = false;
+        }
+
+        if (!isValid) return;
+
+        PatientDTO patientDTO = new PatientDTO(id, contact, email, history, name);
+        try {
+            boolean isUpdated = patientBO.updatePatient(patientDTO);
+            if (isUpdated) {
+                showSuccessAlert("Patient updated successfully!");
+                refreshPage();
+                clearFields();
+            } else {
+                showErrorAlert("Failed to update patient.");
             }
-
-
+        } catch (Exception e) {
+            showErrorAlert("Error: " + e.getMessage());
+        }
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -90,11 +90,18 @@ public class PatientsProgramsController implements Initializable {
     private JFXButton btnSave;
 
     @FXML
+    private ComboBox<String> comboStatus;
+
+    @FXML
     private JFXButton btnUpdate;
     PatientProgramBO patientProgramBO = BoFactory.getInstance().getBO(BoTypes.PATIENT_PROGRAM);
     PatientBO patientBO = BoFactory.getInstance().getBO(BoTypes.PATIENTS);
     ProgramBO programBO = BoFactory.getInstance().getBO(BoTypes.THERAPY_PROGRAMS);
+    @FXML
+    private void handleComboBoxAction(ActionEvent event) {
+        String selectedStatus = comboStatus.getValue();
 
+    }
     @FXML
     void ComboDayOnAction(ActionEvent event) {
         showSelectedDate();
@@ -173,7 +180,7 @@ public class PatientsProgramsController implements Initializable {
             ComboProgramID.setValue(selectedItem.getProgramId());
             txtAttendance.setText(String.valueOf(selectedItem.getAttendance()));
             txtOutCome.setText(selectedItem.getProgramOutcome());
-            txtStatus.setText(selectedItem.getStatus());
+            comboStatus.setValue(selectedItem.getStatus());
 
 
             String enrollmentDate = selectedItem.getEnrollmentDate();
@@ -215,6 +222,7 @@ public class PatientsProgramsController implements Initializable {
 
     }
 
+
     @FXML
     void btnRefreshOnAction(ActionEvent event) throws Exception {
         clearFields();
@@ -224,20 +232,25 @@ public class PatientsProgramsController implements Initializable {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) throws Exception {
-        try{
-            String id=txtPatientProgramid.getText();
-            String patientId=ComboPatientID.getValue();
-            String programId=ComboProgramID.getValue();
-            int attendance=Integer.parseInt(txtAttendance.getText().trim());
-            String programOutcome=txtOutCome.getText().trim();
-            String status=txtStatus.getText().trim();
+        try {
+            String id = txtPatientProgramid.getText();
+            String patientId = ComboPatientID.getValue();
+            String programId = ComboProgramID.getValue();
+            int attendance = Integer.parseInt(txtAttendance.getText().trim());
+            String programOutcome = txtOutCome.getText().trim();
 
-            if (ComboYear.getValue()==null || CombMonth.getValue()==null || ComboDay.getValue()==null){
-                new Alert(Alert.AlertType.WARNING,"Please select a valid date!").show();
+            // Get status from ComboBox instead of TextField
+            String status = comboStatus.getValue();
+
+            if (ComboYear.getValue() == null || CombMonth.getValue() == null || ComboDay.getValue() == null) {
+                new Alert(Alert.AlertType.WARNING, "Please select a valid date!").show();
                 return;
             }
-            String enrollmentDate=ComboYear.getValue()+"-"+CombMonth.getValue()+"-"+ComboDay.getValue();
-            PatientProgramDTO patientProgramDTO=new PatientProgramDTO(id,patientId,programId,enrollmentDate,status,attendance,programOutcome);
+
+            String enrollmentDate = ComboYear.getValue() + "-" + CombMonth.getValue() + "-" + ComboDay.getValue();
+
+            // Create DTO with the new status value from ComboBox
+            PatientProgramDTO patientProgramDTO = new PatientProgramDTO(id, patientId, programId, enrollmentDate, status, attendance, programOutcome);
 
             boolean isSaved = patientProgramBO.savePatientProgram(patientProgramDTO);
             if (isSaved) {
@@ -245,10 +258,9 @@ public class PatientsProgramsController implements Initializable {
                 loadAllPatientPrograms();
                 clearFields();
                 GenerateNextPatientProgramId();
-            }else{
-                new Alert(Alert.AlertType.ERROR,"Failed to Save Patient Program!").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to Save Patient Program!").show();
             }
-
         } catch (NumberFormatException e) {
             new Alert(Alert.AlertType.ERROR, "Please enter valid values for Attendance and Program Outcome.").show();
         } catch (Exception e) {
@@ -256,6 +268,7 @@ public class PatientsProgramsController implements Initializable {
             e.printStackTrace();
         }
     }
+
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
@@ -265,26 +278,23 @@ public class PatientsProgramsController implements Initializable {
             String programId = ComboProgramID.getValue();
             int attendance = Integer.parseInt(txtAttendance.getText().trim());
             String programOutcome = txtOutCome.getText().trim();
-            String status = txtStatus.getText().trim();
 
+            // Get status from ComboBox instead of TextField
+            String status = comboStatus.getValue();
 
             if (ComboYear.getValue() == null || CombMonth.getValue() == null || ComboDay.getValue() == null) {
                 new Alert(Alert.AlertType.WARNING, "Please select a valid date!").show();
                 return;
             }
 
-
             String enrollmentDate = ComboYear.getValue() + "-" + CombMonth.getValue() + "-" + ComboDay.getValue();
 
-
+            // Create DTO with the updated status value
             PatientProgramDTO patientProgramDTO = new PatientProgramDTO(
-                    id,
-                    patientId, programId, enrollmentDate, status, attendance, programOutcome
+                    id, patientId, programId, enrollmentDate, status, attendance, programOutcome
             );
 
-
             boolean isUpdated = patientProgramBO.updatePatientProgram(patientProgramDTO);
-
 
             if (isUpdated) {
                 new Alert(Alert.AlertType.INFORMATION, "Patient Program Updated Successfully!").show();
@@ -303,6 +313,7 @@ public class PatientsProgramsController implements Initializable {
 
     }
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         colPatientProgramID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -312,7 +323,10 @@ public class PatientsProgramsController implements Initializable {
         coldate.setCellValueFactory(new PropertyValueFactory<>("enrollmentDate"));
         coloutcome.setCellValueFactory(new PropertyValueFactory<>("programOutcome"));
         colstatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        comboStatus.getItems().addAll("Complete", "Incomplete");
         initializeDateCombos();
+
+
         try {
             GenerateNextPatientProgramId();
         } catch (Exception e) {
@@ -381,10 +395,11 @@ public class PatientsProgramsController implements Initializable {
         ComboProgramID.setValue(null);
         txtAttendance.clear();
         txtOutCome.clear();
-        txtStatus.clear();
+        comboStatus.setValue(null);
         ComboYear.setValue(null);
         CombMonth.setValue(null);
         ComboDay.setValue(null);
+
         GenerateNextPatientProgramId();
     }
     private void loadPatientIDs() throws Exception {

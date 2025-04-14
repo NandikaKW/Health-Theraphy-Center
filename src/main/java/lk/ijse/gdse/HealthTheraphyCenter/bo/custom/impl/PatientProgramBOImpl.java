@@ -24,28 +24,28 @@ public class PatientProgramBOImpl implements PatientProgramBO {
     @Override
     public boolean savePatientProgram(PatientProgramDTO patientProgramDTO) throws Exception {
         try{
-          Patient patient = patientDAO.findById(patientProgramDTO.getPatientId());
-          if (patient == null) {
-              throw new IllegalArgumentException("Invalid Patient ID");
-          }
-          TherapyProgram therapyProgram = programDAO.findById(patientProgramDTO.getProgramId());
-          if (therapyProgram == null) {
-              throw new IllegalArgumentException("Invalid Program ID");
-          }
-          PatientProgramDetail patientProgramDetail=new PatientProgramDetail(
-                  patientProgramDTO.getId(),
-                  patient,
-                  therapyProgram,
-                  patientProgramDTO.getEnrollmentDate(),
-                  patientProgramDTO.getStatus(),
-                  patientProgramDTO.getAttendance(),
-                  patientProgramDTO.getProgramOutcome()
-          );
-          return patientProgramDAO.save(patientProgramDetail);
+            Patient patient = patientDAO.findById(patientProgramDTO.getPatientId());
+            if (patient == null) {
+                throw new IllegalArgumentException("Invalid Patient ID");
+            }
+            TherapyProgram therapyProgram = programDAO.findById(patientProgramDTO.getProgramId());
+            if (therapyProgram == null) {
+                throw new IllegalArgumentException("Invalid Program ID");
+            }
+            PatientProgramDetail patientProgramDetail=new PatientProgramDetail(
+                    patientProgramDTO.getId(),
+                    patient,
+                    therapyProgram,
+                    patientProgramDTO.getEnrollmentDate(),
+                    patientProgramDTO.getStatus(),
+                    patientProgramDTO.getAttendance(),
+                    patientProgramDTO.getProgramOutcome()
+            );
+            return patientProgramDAO.save(patientProgramDetail);
 
         } catch (Exception e) {
-          throw new RuntimeException(e);
-      }
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -80,6 +80,8 @@ public class PatientProgramBOImpl implements PatientProgramBO {
             throw new RuntimeException("Error updating Patient Program", e);
         }
     }
+
+
     @Override
     public boolean deletePatientProgram(String id) {
         try {
@@ -96,6 +98,7 @@ public class PatientProgramBOImpl implements PatientProgramBO {
             return false;
         }
     }
+
 
 
     @Override

@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="811.0" prefWidth="1194.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.HealthTheraphyCenter.Controller.PatientsProgramsController">
    <children>
       <AnchorPane layoutX="21.0" layoutY="11.0" prefHeight="90.0" prefWidth="531.0" style="-fx-background-color: white;" styleClass="shadow" stylesheets="@../Style/Shadow.css">
@@ -66,11 +65,6 @@
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtStatus" layoutX="650.0" layoutY="311.0" prefHeight="39.0" prefWidth="198.0" promptText="Status">
-         <font>
-            <Font name="Times New Roman Bold" size="18.0" />
-         </font>
-      </TextField>
       <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="1072.0" layoutY="130.0" onAction="#btnSaveOnAction" prefHeight="52.0" prefWidth="99.0" style="-fx-background-color: white;" text="Save">
          <font>
             <Font name="Times New Roman Bold" size="20.0" />
@@ -117,5 +111,6 @@
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </TextField>
+      <ComboBox fx:id="comboStatus" layoutX="649.0" layoutY="315.0" onAction="#handleComboBoxAction" prefHeight="39.0" prefWidth="198.0" style="-fx-background-color: white;" />
    </children>
 </AnchorPane>

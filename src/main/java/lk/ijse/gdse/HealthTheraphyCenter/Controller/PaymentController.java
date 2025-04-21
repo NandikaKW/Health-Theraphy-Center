@@ -123,15 +123,50 @@ public class PaymentController implements Initializable {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) {
-        if (!validateFields()) return;
+        // Get inputs
+        String id = txtid.getText().trim();
+        String amountText = txtAmount.getText().trim();
+        String sessionId = cmbSession.getValue();
+        String date = lblDate.getText();
+
+        // Regex patterns
+        String idPattern = "^P\\d{3}$"; // e.g., P001
+        String sessionPattern = "^TS\\d{3}$"; // Session ID e.g., TS001
+        String amountPattern = "^[0-9]+(\\.[0-9]{1,2})?$"; // Decimal or whole number
+
+        boolean isValid = true;
+
+        // Validate Payment ID
+        if (!id.matches(idPattern)) {
+            txtid.setStyle("-fx-border-color:  #005656;");
+            showErrorAlert("Invalid Payment ID. Format must be 'PYxxx'.");
+            isValid = false;
+        } else {
+            txtid.setStyle(null);
+        }
+
+        // Validate Amount
+        if (!amountText.matches(amountPattern)) {
+            txtAmount.setStyle("-fx-border-color:  #005656;");
+            showErrorAlert("Invalid amount. Enter a valid number (e.g., 100.00).");
+            isValid = false;
+        } else {
+            txtAmount.setStyle(null);
+        }
+
+        // Validate Session ID
+        if (sessionId == null || !sessionId.matches(sessionPattern)) {
+            cmbSession.setStyle("-fx-border-color:  #005656;");
+            showErrorAlert("Invalid Session ID. Format must be 'TSxxx'.");
+            isValid = false;
+        } else {
+            cmbSession.setStyle(null);
+        }
+
+        if (!isValid) return;
 
         try {
-            String id = txtid.getText();
-            double amount = Double.parseDouble(txtAmount.getText());
-            String sessionId = cmbSession.getValue();
-            String date = lblDate.getText(); // Keep date as String
-
-            // Pass date as String instead of converting it to Date
+            double amount = Double.parseDouble(amountText);
             PaymentDTO paymentDTO = new PaymentDTO(id, amount, date, sessionId);
             boolean isSaved = paymentBO.savePayment(paymentDTO);
 
@@ -145,6 +180,15 @@ public class PaymentController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Error", "Exception Occurred", e.getMessage());
         }
     }
+
+    private void showErrorAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
@@ -178,15 +222,46 @@ public class PaymentController implements Initializable {
             return;
         }
 
-        if (!validateFields()) return;
+        String id = txtid.getText().trim();
+        String amountText = txtAmount.getText().trim();
+        String sessionId = cmbSession.getValue();
+        String date = lblDate.getText();
+
+        // Updated regex patterns
+        String idPattern = "^P\\d{3}$";        // Payment ID: P001
+        String sessionPattern = "^TS\\d{3}$";  // Session ID: TS001
+        String amountPattern = "^[0-9]+(\\.[0-9]{1,2})?$";
+
+        boolean isValid = true;
+
+        if (!id.matches(idPattern)) {
+            txtid.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Payment ID. Format must be 'Pxxx'.");
+            isValid = false;
+        } else {
+            txtid.setStyle(null);
+        }
+
+        if (!amountText.matches(amountPattern)) {
+            txtAmount.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid amount. Use a valid number like 250 or 99.99.");
+            isValid = false;
+        } else {
+            txtAmount.setStyle(null);
+        }
+
+        if (sessionId == null || !sessionId.matches(sessionPattern)) {
+            cmbSession.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Session ID. Format must be 'TSxxx'.");
+            isValid = false;
+        } else {
+            cmbSession.setStyle(null);
+        }
+
+        if (!isValid) return;
 
         try {
-            String id = txtid.getText();
-            double amount = Double.parseDouble(txtAmount.getText());
-            String sessionId = cmbSession.getValue();
-            String date = lblDate.getText(); // Keep date as String
-
-            // Pass date as a String instead of converting to Date
+            double amount = Double.parseDouble(amountText);
             PaymentDTO paymentDTO = new PaymentDTO(id, amount, date, sessionId);
             boolean isUpdated = paymentBO.updatePayment(paymentDTO);
 
@@ -200,6 +275,7 @@ public class PaymentController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Error", "Exception Occurred", e.getMessage());
         }
     }
+
 
     @FXML
     void onClickTable(MouseEvent event) {

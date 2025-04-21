@@ -121,11 +121,36 @@ public class TherapistsFormController implements Initializable {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) {
-        String id = txtID.getText();
-        String name = txtName.getText();
-        String contact = txtContact.getText();
-        String specialization = txtSpecialization.getText();
-        String programId = txtProgramID.getText();
+        String id = txtID.getText().trim();
+        String name = txtName.getText().trim();
+        String contact = txtContact.getText().trim();
+        String specialization = txtSpecialization.getText().trim();
+        String programId = txtProgramID.getText().trim();
+
+        // Regex patterns
+        String idPattern = "^T\\d{3}$"; // Example: T001
+        String contactPattern = "^(\\+94|0)?\\d{9}$"; // SL format
+        String programIdPattern = "^TP\\d{3}$"; // Example: TP001
+
+        resetFieldStyles(); // Optional: to clear any old styles
+
+        if (!id.matches(idPattern)) {
+            txtID.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Therapist ID. Format should be 'Txxx'.");
+            return;
+        }
+
+        if (!contact.matches(contactPattern)) {
+            txtContact.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Contact Number.");
+            return;
+        }
+
+        if (!programId.matches(programIdPattern)) {
+            txtProgramID.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Program ID. Format should be 'TPxxx'.");
+            return;
+        }
 
         if (id.isEmpty() || name.isEmpty() || contact.isEmpty() || specialization.isEmpty() || programId.isEmpty()) {
             showErrorAlert("Please fill in all fields.");
@@ -147,13 +172,48 @@ public class TherapistsFormController implements Initializable {
             showErrorAlert("Error: " + e.getMessage());
         }
     }
+
+    private void resetFieldStyles() {
+        txtID.setStyle(null);
+        txtName.setStyle(null);
+        txtContact.setStyle(null);
+        txtSpecialization.setStyle(null);
+        txtProgramID.setStyle(null);
+    }
+
+
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
-        String id = txtID.getText();
-        String name = txtName.getText();
-        String contact = txtContact.getText();
-        String specialization = txtSpecialization.getText();
-        String programId = txtProgramID.getText();
+        String id = txtID.getText().trim();
+        String name = txtName.getText().trim();
+        String contact = txtContact.getText().trim();
+        String specialization = txtSpecialization.getText().trim();
+        String programId = txtProgramID.getText().trim();
+
+        // Regex patterns
+        String idPattern = "^T\\d{3}$";
+        String contactPattern = "^(\\+94|0)?\\d{9}$";
+        String programIdPattern = "^TP\\d{3}$";
+
+        resetFieldStyles();
+
+        if (!id.matches(idPattern)) {
+            txtID.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Therapist ID. Format should be 'Txxx'.");
+            return;
+        }
+
+        if (!contact.matches(contactPattern)) {
+            txtContact.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Contact Number.");
+            return;
+        }
+
+        if (!programId.matches(programIdPattern)) {
+            txtProgramID.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Program ID. Format should be 'TPxxx'.");
+            return;
+        }
 
         if (id.isEmpty() || name.isEmpty() || contact.isEmpty() || specialization.isEmpty() || programId.isEmpty()) {
             showErrorAlert("Please select a therapist to update.");
@@ -173,10 +233,8 @@ public class TherapistsFormController implements Initializable {
         } catch (Exception e) {
             showErrorAlert("Error: " + e.getMessage());
         }
-
-
-
     }
+
 
     @FXML
     void onClickTable(MouseEvent event) {

@@ -119,77 +119,222 @@ public class TherapySessionsController implements Initializable {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) {
-        if (validateFields()) {
-            SessionDTO sessionDTO = new SessionDTO();
-            sessionDTO.setId(txtid.getText());
-            sessionDTO.setPatientId(cmbPatient.getValue());
-            sessionDTO.setTherapistId(cmbTherapist.getValue());
-            sessionDTO.setProgramId(cmbProgram.getValue());
-            sessionDTO.setNotes(txtNotes.getText());
+        // Get values from UI
+        String id = txtid.getText().trim();
+        String patientId = cmbPatient.getValue();
+        String therapistId = cmbTherapist.getValue();
+        String programId = cmbProgram.getValue();
+        String notes = txtNotes.getText().trim();
+        LocalDate selectedDateValue = datePicker.getValue();
 
+        // Regex patterns
+        String idPattern = "^TS\\d{3}$"; // Session ID: TS001
+        String patientPattern = "^P\\d{3}$"; // Patient ID: P001
+        String therapistPattern = "^T\\d{3}$"; // Therapist ID: T001
+        String programPattern = "^TP\\d{3}$"; // Program ID: TP001
+        String notesPattern = "^[\\w\\s.,!?'-]{0,200}$"; // Notes: Alphanumeric and punctuation
+        boolean isValid = true;
 
-            Date selectedDate = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            String formattedDate = sdf.format(selectedDate);
-
-            sessionDTO.setDate(formattedDate);  // Set formatted date string
-            sessionDTO.setStatus("UNPAID");
-
-            try {
-                boolean saved = sessionBO.saveSession(sessionDTO);
-
-                if (saved) {
-                    showAlert(Alert.AlertType.INFORMATION, "Error", "Success", "Session saved successfully.");
-                    refreshPage();
-                } else {
-                    showAlert(Alert.AlertType.ERROR, "Error", "Failed", "Failed to save session.");
-                }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+        // Validate Session ID
+        if (!id.matches(idPattern)) {
+            txtid.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Session ID. Format must be 'TSxxx'.");
+            isValid = false;
+        } else {
+            txtid.setStyle(null);
         }
 
+        // Validate Patient ID
+        if (patientId == null || !patientId.matches(patientPattern)) {
+            cmbPatient.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Patient ID. Format must be 'Pxxx'.");
+            isValid = false;
+        } else {
+            cmbPatient.setStyle(null);
+        }
+
+        // Validate Therapist ID
+        if (therapistId == null || !therapistId.matches(therapistPattern)) {
+            cmbTherapist.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Therapist ID. Format must be 'Txxx'.");
+            isValid = false;
+        } else {
+            cmbTherapist.setStyle(null);
+        }
+
+        // Validate Program ID
+        if (programId == null || !programId.matches(programPattern)) {
+            cmbProgram.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Program ID. Format must be 'TPxxx'.");
+            isValid = false;
+        } else {
+            cmbProgram.setStyle(null);
+        }
+
+        // Validate Notes
+        if (!notes.matches(notesPattern)) {
+            txtNotes.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid notes. Only 200 characters max including letters, numbers, and punctuation.");
+            isValid = false;
+        } else {
+            txtNotes.setStyle(null);
+        }
+
+        // Validate Date
+        if (selectedDateValue == null) {
+            datePicker.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Please select a session date.");
+            isValid = false;
+        } else {
+            datePicker.setStyle(null);
+        }
+
+        if (!isValid) return;
+
+        // Prepare date and DTO
+        Date selectedDate = Date.from(selectedDateValue.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = sdf.format(selectedDate);
+
+        SessionDTO sessionDTO = new SessionDTO();
+        sessionDTO.setId(id); // id → therapy_sessions.id
+        sessionDTO.setPatientId(patientId); // patient_id
+        sessionDTO.setTherapistId(therapistId); // therapist_id
+        sessionDTO.setProgramId(programId); // therapy_program_id
+        sessionDTO.setNotes(notes); // sessionNotes
+        sessionDTO.setDate(formattedDate); // sessionDate
+        sessionDTO.setStatus("UNPAID"); // status
+
+        // Save session
+        try {
+            boolean saved = sessionBO.saveSession(sessionDTO);
+            if (saved) {
+                showAlert(Alert.AlertType.INFORMATION, "Success", null, "Session saved successfully.");
+                refreshPage();
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Error", null, "Failed to save session.");
+            }
+        } catch (Exception e) {
+            showErrorAlert("Error: " + e.getMessage());
+        }
     }
+
+    private void showErrorAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) throws Exception {
-        if (validateFields()) {
-            SessionDTO sessionDTO = new SessionDTO();
-            sessionDTO.setId(txtid.getText());
-            sessionDTO.setPatientId(cmbPatient.getValue());
-            sessionDTO.setTherapistId(cmbTherapist.getValue());
-            sessionDTO.setProgramId(cmbProgram.getValue());
-            sessionDTO.setNotes(txtNotes.getText());
+        // Get values from UI
+        String id = txtid.getText().trim();
+        String patientId = cmbPatient.getValue();
+        String therapistId = cmbTherapist.getValue();
+        String programId = cmbProgram.getValue();
+        String notes = txtNotes.getText().trim();
+        LocalDate selectedDateValue = datePicker.getValue();
 
+        // Regex patterns
+        String idPattern = "^TS\\d{3}$"; // Session ID
+        String patientPattern = "^P\\d{3}$"; // Patient ID
+        String therapistPattern = "^T\\d{3}$"; // Therapist ID
+        String programPattern = "^TP\\d{3}$"; // Program ID
+        String notesPattern = "^[\\w\\s.,!?'-]{0,200}$"; // Notes
 
-            Date selectedDate = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        boolean isValid = true;
 
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            String formattedDate = sdf.format(selectedDate);
-
-            sessionDTO.setDate(formattedDate); // Set formatted date string
-
-            Optional<SessionDTO> sessionByID = sessionBO.findSessionByID(txtid.getText());
-            sessionByID.ifPresent(dto -> sessionDTO.setStatus(dto.getStatus()));
-
-            try {
-                boolean updated = sessionBO.updateSession(sessionDTO);
-
-                if (updated) {
-                    showAlert(Alert.AlertType.INFORMATION, "Error", "Success", "Session updated successfully.");
-                    refreshPage();
-                } else {
-                    showAlert(Alert.AlertType.ERROR, "Error", "Failed", "Failed to update session.");
-                }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+        // Validate Session ID
+        if (!id.matches(idPattern)) {
+            txtid.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Session ID. Format must be 'TSxxx'.");
+            isValid = false;
+        } else {
+            txtid.setStyle(null);
         }
 
+        // Validate Patient ID
+        if (patientId == null || !patientId.matches(patientPattern)) {
+            cmbPatient.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Patient ID. Format must be 'Pxxx'.");
+            isValid = false;
+        } else {
+            cmbPatient.setStyle(null);
+        }
+
+        // Validate Therapist ID
+        if (therapistId == null || !therapistId.matches(therapistPattern)) {
+            cmbTherapist.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Therapist ID. Format must be 'Txxx'.");
+            isValid = false;
+        } else {
+            cmbTherapist.setStyle(null);
+        }
+
+        // Validate Program ID
+        if (programId == null || !programId.matches(programPattern)) {
+            cmbProgram.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Program ID. Format must be 'TPxxx'.");
+            isValid = false;
+        } else {
+            cmbProgram.setStyle(null);
+        }
+
+        // Validate Notes
+        if (!notes.matches(notesPattern)) {
+            txtNotes.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid notes. Only 200 characters max including letters, numbers, and punctuation.");
+            isValid = false;
+        } else {
+            txtNotes.setStyle(null);
+        }
+
+        // Validate Date
+        if (selectedDateValue == null) {
+            datePicker.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Please select a session date.");
+            isValid = false;
+        } else {
+            datePicker.setStyle(null);
+        }
+
+        if (!isValid) return;
+
+        // Prepare formatted date
+        Date selectedDate = Date.from(selectedDateValue.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = sdf.format(selectedDate);
+
+        // Create DTO
+        SessionDTO sessionDTO = new SessionDTO();
+        sessionDTO.setId(id);
+        sessionDTO.setPatientId(patientId);
+        sessionDTO.setTherapistId(therapistId);
+        sessionDTO.setProgramId(programId);
+        sessionDTO.setNotes(notes);
+        sessionDTO.setDate(formattedDate);
+
+        // Retain original status
+        Optional<SessionDTO> sessionByID = sessionBO.findSessionByID(id);
+        sessionByID.ifPresent(dto -> sessionDTO.setStatus(dto.getStatus()));
+
+        try {
+            boolean updated = sessionBO.updateSession(sessionDTO);
+
+            if (updated) {
+                showAlert(Alert.AlertType.INFORMATION, "Success", null, "Session updated successfully.");
+                refreshPage();
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Error", null, "Failed to update session.");
+            }
+        } catch (Exception e) {
+            showErrorAlert("Update Error: " + e.getMessage());
+        }
     }
+
 
     @FXML
     void cmbPatientOnAction(ActionEvent event) throws Exception {

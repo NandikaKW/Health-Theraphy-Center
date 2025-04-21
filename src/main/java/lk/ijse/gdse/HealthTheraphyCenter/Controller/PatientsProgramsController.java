@@ -231,43 +231,112 @@ public class PatientsProgramsController implements Initializable {
     }
 
     @FXML
-    void btnSaveOnAction(ActionEvent event) throws Exception {
+    void btnSaveOnAction(ActionEvent event) {
+        String id = txtPatientProgramid.getText();
+        String patientId = ComboPatientID.getValue();
+        String programId = ComboProgramID.getValue();
+        String attendanceStr = txtAttendance.getText().trim();
+        String programOutcome = txtOutCome.getText().trim();
+        String status = comboStatus.getValue();
+
+        // Regex patterns
+        String idPattern = "^PP\\d{2,}$"; // Example: PP01
+        String patientIdPattern = "^P\\d{3}$"; // Example: P001
+        String programIdPattern = "^TP\\d{3}$"; // Example: TP001
+        String attendancePattern = "^\\d{1,3}$"; // Max 3-digit attendance
+        String outcomePattern = "^[\\w\\s,.#-]{0,255}$"; // Optional but limited to 255 chars
+        String statusPattern = "^(Incomplete|Complete|Pending)$"; // Adjust as per allowed statuses
+
+        // Validations
+        boolean isValidId = id != null && id.matches(idPattern);
+        boolean isValidPatientId = patientId != null && patientId.matches(patientIdPattern);
+        boolean isValidProgramId = programId != null && programId.matches(programIdPattern);
+        boolean isValidAttendance = attendanceStr.matches(attendancePattern);
+        boolean isValidOutcome = programOutcome.matches(outcomePattern);
+        boolean isValidStatus = status != null && status.matches(statusPattern);
+
+        resetFieldStyles();
+
+        if (!isValidId) {
+            txtPatientProgramid.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Program ID (e.g., PP01).");
+        }
+        if (!isValidPatientId) {
+            ComboPatientID.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Patient ID (e.g., P001).");
+        }
+        if (!isValidProgramId) {
+            ComboProgramID.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Therapy Program ID (e.g., TP001).");
+        }
+        if (!isValidAttendance) {
+            txtAttendance.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Attendance (should be a number between 0-999).");
+        }
+        if (!isValidOutcome) {
+            txtOutCome.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Program Outcome.");
+        }
+        if (!isValidStatus) {
+            comboStatus.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Status. Must be Complete, Incomplete, or Pending.");
+        }
+
+        if (!isValidId || !isValidPatientId || !isValidProgramId || !isValidAttendance || !isValidOutcome || !isValidStatus)
+            return;
+
+        if (ComboYear.getValue() == null || CombMonth.getValue() == null || ComboDay.getValue() == null) {
+            showErrorAlert("Please select a valid date.");
+            return;
+        }
+
+        String enrollmentDate = ComboYear.getValue() + "-" + CombMonth.getValue() + "-" + ComboDay.getValue();
+
         try {
-            String id = txtPatientProgramid.getText();
-            String patientId = ComboPatientID.getValue();
-            String programId = ComboProgramID.getValue();
-            int attendance = Integer.parseInt(txtAttendance.getText().trim());
-            String programOutcome = txtOutCome.getText().trim();
-
-            // Get status from ComboBox instead of TextField
-            String status = comboStatus.getValue();
-
-            if (ComboYear.getValue() == null || CombMonth.getValue() == null || ComboDay.getValue() == null) {
-                new Alert(Alert.AlertType.WARNING, "Please select a valid date!").show();
-                return;
-            }
-
-            String enrollmentDate = ComboYear.getValue() + "-" + CombMonth.getValue() + "-" + ComboDay.getValue();
-
-            // Create DTO with the new status value from ComboBox
+            int attendance = Integer.parseInt(attendanceStr);
             PatientProgramDTO patientProgramDTO = new PatientProgramDTO(id, patientId, programId, enrollmentDate, status, attendance, programOutcome);
 
             boolean isSaved = patientProgramBO.savePatientProgram(patientProgramDTO);
             if (isSaved) {
-                new Alert(Alert.AlertType.INFORMATION, "Patient Program Saved Successfully!").show();
+                showSuccessAlert("Patient Program Saved Successfully!");
                 loadAllPatientPrograms();
                 clearFields();
                 GenerateNextPatientProgramId();
             } else {
-                new Alert(Alert.AlertType.ERROR, "Failed to Save Patient Program!").show();
+                showErrorAlert("Failed to Save Patient Program.");
             }
-        } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.ERROR, "Please enter valid values for Attendance and Program Outcome.").show();
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "An error occurred while saving the Patient Program. Please try again later.").show();
+            showErrorAlert("An error occurred: " + e.getMessage());
             e.printStackTrace();
         }
     }
+
+    private void showSuccessAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void resetFieldStyles() {
+        txtPatientProgramid.setStyle(null);
+        ComboPatientID.setStyle(null);
+        ComboProgramID.setStyle(null);
+        txtAttendance.setStyle(null);
+        txtOutCome.setStyle(null);
+        comboStatus.setStyle(null);
+    }
+    private void showErrorAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+
+
 
 
     @FXML
@@ -276,20 +345,30 @@ public class PatientsProgramsController implements Initializable {
             String id = colPatientProgramID.getText();
             String patientId = ComboPatientID.getValue();
             String programId = ComboProgramID.getValue();
-            int attendance = Integer.parseInt(txtAttendance.getText().trim());
+            String attendanceStr = txtAttendance.getText().trim();
             String programOutcome = txtOutCome.getText().trim();
-
-            // Get status from ComboBox instead of TextField
             String status = comboStatus.getValue();
 
+            // Regex for attendance: must be a positive integer (e.g., 1 to 999)
+            String attendancePattern = "^\\d{1,3}$";
+
+            if (!attendanceStr.matches(attendancePattern)) {
+                txtAttendance.setStyle("-fx-border-color: #005656;");
+                showErrorAlert("Invalid Attendance. Please enter a number between 0 and 999.");
+                return;
+            } else {
+                txtAttendance.setStyle(null); // Reset if valid
+            }
+
+            int attendance = Integer.parseInt(attendanceStr);
+
             if (ComboYear.getValue() == null || CombMonth.getValue() == null || ComboDay.getValue() == null) {
-                new Alert(Alert.AlertType.WARNING, "Please select a valid date!").show();
+                showErrorAlert("Please select a valid date!");
                 return;
             }
 
             String enrollmentDate = ComboYear.getValue() + "-" + CombMonth.getValue() + "-" + ComboDay.getValue();
 
-            // Create DTO with the updated status value
             PatientProgramDTO patientProgramDTO = new PatientProgramDTO(
                     id, patientId, programId, enrollmentDate, status, attendance, programOutcome
             );
@@ -297,21 +376,19 @@ public class PatientsProgramsController implements Initializable {
             boolean isUpdated = patientProgramBO.updatePatientProgram(patientProgramDTO);
 
             if (isUpdated) {
-                new Alert(Alert.AlertType.INFORMATION, "Patient Program Updated Successfully!").show();
+                showSuccessAlert("Patient Program Updated Successfully!");
                 loadAllPatientPrograms();
                 clearFields();
             } else {
-                new Alert(Alert.AlertType.ERROR, "Failed to Update Patient Program!").show();
+                showErrorAlert("Failed to Update Patient Program!");
             }
 
-        } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.ERROR, "Invalid attendance input. Please enter a number!").show();
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "An error occurred: " + e.getMessage()).show();
+            showErrorAlert("An error occurred: " + e.getMessage());
             e.printStackTrace();
         }
-
     }
+
 
 
     @Override

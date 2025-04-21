@@ -125,52 +125,188 @@ public class TherapyProgramsController implements Initializable {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) {
+        String id = txtid.getText().trim();
+        String name = txtName.getText().trim();
+        String description = txtDescription.getText().trim();
+        String durationStr = txtDuration.getText().trim();
+        String feeStr = txtCost.getText().trim();
+
+        // Regex patterns
+        String idPattern = "^TP\\d{3}$";  // Program ID: Format should be 'TPxxx'
+        String namePattern = "^[a-zA-Z\\s]+$";  // Name: Only letters and spaces
+        String descriptionPattern = "^[a-zA-Z\\s\\d]+$";  // Description: Alphanumeric and spaces
+        String durationPattern = "^\\d+$";  // Duration: Only positive integers
+        String feePattern = "^\\d+(\\.\\d{1,2})?$";  // Fee: Digits with optional decimal up to 2 places
+
+        boolean isValid = true;
+
+        // Validate Program ID
+        if (!id.matches(idPattern)) {
+            txtid.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Program ID. Format should be 'TPxxx'.");
+            isValid = false;
+        } else {
+            txtid.setStyle(null);  // Reset border color if valid
+        }
+
+        // Validate Name
+        if (!name.matches(namePattern)) {
+            txtName.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid name. Only letters and spaces are allowed.");
+            isValid = false;
+        } else {
+            txtName.setStyle(null);  // Reset border color if valid
+        }
+
+        // Validate Description
+        if (!description.matches(descriptionPattern)) {
+            txtDescription.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid description. Only alphanumeric characters and spaces are allowed.");
+            isValid = false;
+        } else {
+            txtDescription.setStyle(null);  // Reset border color if valid
+        }
+
+        // Validate Duration
+        if (!durationStr.matches(durationPattern)) {
+            txtDuration.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid duration. Please enter a valid number.");
+            isValid = false;
+        } else {
+            txtDuration.setStyle(null);  // Reset border color if valid
+        }
+
+        // Validate Fee
+        if (!feeStr.matches(feePattern)) {
+            txtCost.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid fee. Please enter a valid amount.");
+            isValid = false;
+        } else {
+            txtCost.setStyle(null);  // Reset border color if valid
+        }
+
+        if (!isValid) return;
+
         try {
-            String id = txtid.getText();
-            String name = txtName.getText();
-            String description = txtDescription.getText();
-            int duration = Integer.parseInt(txtDuration.getText());
-            double fee = Double.parseDouble(txtCost.getText());
+            int duration = Integer.parseInt(durationStr);
+            double fee = Double.parseDouble(feeStr);
 
             ProgramDTO programDTO = new ProgramDTO(id, name, description, duration, fee);
             boolean isSaved = programBO.saveProgram(programDTO);
             if (isSaved) {
-                new Alert(Alert.AlertType.INFORMATION, "Program saved successfully").show();
+                showSuccessAlert("Program saved successfully");
                 refreshTable();
                 clearFields();
                 GenerateNextId();
             } else {
-                new Alert(Alert.AlertType.ERROR, "Failed to save program").show();
+                showErrorAlert("Failed to save program");
             }
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage()).show();
+            showErrorAlert("Error: " + e.getMessage());
         }
-
     }
+
+
+
+    private void showSuccessAlert(String programSavedSuccessfully) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText(null);
+        alert.setContentText(programSavedSuccessfully);
+        alert.showAndWait();
+    }
+
+    private void showErrorAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
+        String id = txtid.getText().trim();
+        String name = txtName.getText().trim();
+        String description = txtDescription.getText().trim();
+        String durationStr = txtDuration.getText().trim();
+        String feeStr = txtCost.getText().trim();
+
+        // Regex patterns
+        String idPattern = "^TP\\d{3}$";  // Program ID: Format should be 'TPxxx'
+        String namePattern = "^[a-zA-Z\\s]+$";  // Name: Only letters and spaces
+        String descriptionPattern = "^[a-zA-Z\\s\\d]+$";  // Description: Alphanumeric and spaces
+        String durationPattern = "^\\d+$";  // Duration: Only positive integers
+        String feePattern = "^\\d+(\\.\\d{1,2})?$";  // Fee: Digits with optional decimal up to 2 places
+
+        boolean isValid = true;
+
+        // Validate Program ID
+        if (!id.matches(idPattern)) {
+            txtid.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Program ID. Format should be 'TPxxx'.");
+            isValid = false;
+        } else {
+            txtid.setStyle(null);  // Reset border color if valid
+        }
+
+        // Validate Name
+        if (!name.matches(namePattern)) {
+            txtName.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid name. Only letters and spaces are allowed.");
+            isValid = false;
+        } else {
+            txtName.setStyle(null);  // Reset border color if valid
+        }
+
+        // Validate Description
+        if (!description.matches(descriptionPattern)) {
+            txtDescription.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid description. Only alphanumeric characters and spaces are allowed.");
+            isValid = false;
+        } else {
+            txtDescription.setStyle(null);  // Reset border color if valid
+        }
+
+        // Validate Duration
+        if (!durationStr.matches(durationPattern)) {
+            txtDuration.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid duration. Please enter a valid number.");
+            isValid = false;
+        } else {
+            txtDuration.setStyle(null);  // Reset border color if valid
+        }
+
+        // Validate Fee
+        if (!feeStr.matches(feePattern)) {
+            txtCost.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid fee. Please enter a valid amount.");
+            isValid = false;
+        } else {
+            txtCost.setStyle(null);  // Reset border color if valid
+        }
+
+        if (!isValid) return;
+
         try {
-            String id = txtid.getText();
-            String name = txtName.getText();
-            String description = txtDescription.getText();
-            int duration = Integer.parseInt(txtDuration.getText());
-            double fee = Double.parseDouble(txtCost.getText());
+            int duration = Integer.parseInt(durationStr);
+            double fee = Double.parseDouble(feeStr);
 
             ProgramDTO programDTO = new ProgramDTO(id, name, description, duration, fee);
             boolean isUpdated = programBO.updateProgram(programDTO);
             if (isUpdated) {
-                new Alert(Alert.AlertType.INFORMATION, "Program updated successfully").show();
+                showSuccessAlert("Program updated successfully");
                 refreshTable();
                 clearFields();
             } else {
-                new Alert(Alert.AlertType.ERROR, "Failed to update program").show();
+                showErrorAlert("Failed to update program");
             }
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage()).show();
+            showErrorAlert("Error: " + e.getMessage());
         }
-
     }
+
 
     @FXML
     void onClickTable(MouseEvent event) {

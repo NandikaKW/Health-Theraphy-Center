@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.gdse.HealthTheraphyCenter.Exception.PaymentException;
 import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.BoFactory;
 import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.BoTypes;
 import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.PaymentBO;
@@ -101,9 +102,14 @@ public class PaymentController implements Initializable {
             }
             tblPayments.setItems(paymentTMS);
 
+        } catch (PaymentException e) {
+            new Alert(Alert.AlertType.ERROR, "Payment Error: " + e.getMessage()).show();
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage()).show();
+            PaymentException wrapped = new PaymentException("Unexpected error occurred while loading payments.", e);
+            new Alert(Alert.AlertType.ERROR, "System Error: " + wrapped.getMessage()).show();
+            e.printStackTrace();
         }
+
     }
 
     private void clearFields() throws Exception {
@@ -176,9 +182,16 @@ public class PaymentController implements Initializable {
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Save Failed", "Payment record could not be saved.");
             }
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "Input Error", "Amount Conversion Failed", "Invalid number format for amount.");
+        } catch (PaymentException e) {
+            showAlert(Alert.AlertType.ERROR, "Payment Error", "Could not save payment", e.getMessage());
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Exception Occurred", e.getMessage());
+            PaymentException wrapped = new PaymentException("Unexpected error occurred while saving payment.", e);
+            showAlert(Alert.AlertType.ERROR, "System Error", "Unexpected Error", wrapped.getMessage());
+            e.printStackTrace();
         }
+
     }
 
     private void showErrorAlert(String message) {
@@ -207,10 +220,16 @@ public class PaymentController implements Initializable {
                 refreshPage();
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Deletion Failed", "Could not delete the payment.");
+                throw new PaymentException("Payment record could not be deleted.");
             }
+        } catch (PaymentException e) {
+            showAlert(Alert.AlertType.ERROR, "Payment Error", "Could not delete payment", e.getMessage());
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Exception Occurred", e.getMessage());
+            PaymentException wrapped = new PaymentException("Unexpected error occurred while deleting the payment.", e);
+            showAlert(Alert.AlertType.ERROR, "System Error", "Unexpected Error", wrapped.getMessage());
+            e.printStackTrace();
         }
+
     }
 
     @FXML
@@ -270,10 +289,17 @@ public class PaymentController implements Initializable {
                 refreshPage();
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Update Failed", "Could not update the payment.");
+                throw new PaymentException("Payment record could not be updated.");
+
             }
+        } catch (PaymentException e) {
+            showAlert(Alert.AlertType.ERROR, "Payment Error", "Could not update payment", e.getMessage());
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Exception Occurred", e.getMessage());
+            PaymentException wrapped = new PaymentException("Unexpected error occurred while updating the payment.", e);
+            showAlert(Alert.AlertType.ERROR, "System Error", "Unexpected Error", wrapped.getMessage());
+            e.printStackTrace();
         }
+
     }
 
 

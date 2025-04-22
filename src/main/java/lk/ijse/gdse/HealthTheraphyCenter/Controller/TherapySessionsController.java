@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.gdse.HealthTheraphyCenter.Exception.SessionException;
 import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.BoFactory;
 import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.BoTypes;
 import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.SessionBO;
@@ -103,8 +104,10 @@ public class TherapySessionsController implements Initializable {
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Failed", "Failed to delete session.");
             }
+        } catch (SessionException e) {
+            showErrorAlert("Session Error: " + e.getMessage());
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Error", "An error occurred while deleting the session.");
+            showErrorAlert("Unexpected Error: " + e.getMessage());
         }
 
     }
@@ -213,9 +216,12 @@ public class TherapySessionsController implements Initializable {
                 refreshPage();
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", null, "Failed to save session.");
+                throw new SessionException("Failed to save session due to unknown reason.");
             }
+        } catch (SessionException e) {
+            showErrorAlert("Session Error: " + e.getMessage());
         } catch (Exception e) {
-            showErrorAlert("Error: " + e.getMessage());
+            showErrorAlert("Unexpected Error: " + e.getMessage());
         }
     }
 
@@ -330,8 +336,10 @@ public class TherapySessionsController implements Initializable {
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", null, "Failed to update session.");
             }
+        } catch (SessionException e) {
+            showErrorAlert("Session Error: " + e.getMessage());
         } catch (Exception e) {
-            showErrorAlert("Update Error: " + e.getMessage());
+            showErrorAlert("Unexpected Error: " + e.getMessage());
         }
     }
 
@@ -403,8 +411,10 @@ public class TherapySessionsController implements Initializable {
 
         try {
             refreshPage();
+        } catch (SessionException e) {
+            showErrorAlert("Session Error: " + e.getMessage());
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            showErrorAlert("Unexpected Error: " + e.getMessage());
         }
 
     }
@@ -427,8 +437,10 @@ public class TherapySessionsController implements Initializable {
             }
             tblSessions.setItems(sessionList);
 
+        } catch (SessionException e) {
+            showErrorAlert("Session Error: " + e.getMessage());
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage()).show();
+            showErrorAlert("Unexpected Error: " + e.getMessage());
         }
     }
 

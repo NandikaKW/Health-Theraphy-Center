@@ -1,0 +1,5 @@
+package lk.ijse.gdse.HealthTheraphyCenter.Exception;
+
+public class SessionException extends Exception{
+    
+}

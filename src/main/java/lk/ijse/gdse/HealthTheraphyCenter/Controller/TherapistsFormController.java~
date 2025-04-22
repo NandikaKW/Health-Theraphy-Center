@@ -1,0 +1,273 @@
+package lk.ijse.gdse.HealthTheraphyCenter.Controller;
+
+import com.jfoenix.controls.JFXButton;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import lk.ijse.gdse.HealthTheraphyCenter.Entity.Therapist;
+import lk.ijse.gdse.HealthTheraphyCenter.bo.custom.*;
+import lk.ijse.gdse.HealthTheraphyCenter.dto.TherapistDTO;
+import lk.ijse.gdse.HealthTheraphyCenter.dto.tm.TherapistTM;
+
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
+
+public class TherapistsFormController implements Initializable {
+
+    @FXML
+    private JFXButton btnDelete;
+
+    @FXML
+    private JFXButton btnRefresh;
+
+    @FXML
+    private JFXButton btnSave;
+
+    @FXML
+    private JFXButton btnUpdate;
+
+    @FXML
+    private TableColumn<TherapistTM, String> colContact;
+
+    @FXML
+    private TableColumn<TherapistTM, String> colID;
+
+    @FXML
+    private TableColumn<TherapistTM, String> colName;
+
+    @FXML
+    private TableColumn<TherapistTM, String> colProgramID;
+
+    @FXML
+    private TableColumn<TherapistTM, String> colSpecialization;
+
+    @FXML
+    private TableView<TherapistTM> tblTherapists;
+
+    @FXML
+    private TextField txtContact;
+
+    @FXML
+    private TextField txtID;
+
+    @FXML
+    private TextField txtName;
+
+    @FXML
+    private TextField txtProgramID;
+
+    @FXML
+    private TextField txtSpecialization;
+    TherapistBO therapistBO = BoFactory.getInstance().getBO(BoTypes.THERAPISTS);
+    ProgramBO programBO = BoFactory.getInstance().getBO(BoTypes.THERAPY_PROGRAMS);
+
+    @FXML
+    void btnDeleteOnAction(ActionEvent event) {
+        String therapistId = txtID.getText();
+        if (therapistId.isEmpty()) {
+            showErrorAlert("Please select a therapist to delete.");
+            return;
+        }
+        try{
+            boolean isDeleted = therapistBO.deleteTherapist(therapistId);
+            if (isDeleted) {
+                refreshTable();
+                clearFields();
+                GenerateNextTherapistId();
+                showSuccessAlert("Therapist deleted successfully.");
+            }
+
+        } catch (Exception e) {
+            showErrorAlert("Error deleting therapist: " + e.getMessage());
+
+        }
+
+    }
+
+    @FXML
+    void btnRefreshOnAction(ActionEvent event) throws Exception {
+        refreshTable();
+        clearFields();
+        GenerateNextTherapistId();
+
+    }
+
+    private void refreshTable() {
+        try {
+            List<TherapistDTO> therapistList = therapistBO.getAllTherapists();
+            ObservableList<TherapistTM> obList = FXCollections.observableArrayList();
+
+            for (TherapistDTO dto : therapistList) {
+                obList.add(new TherapistTM(dto.getId(), dto.getName(), dto.getContactInfo(), dto.getSpecialization(), dto.getTherapyProgramId()));
+            }
+
+            tblTherapists.setItems(obList);
+            GenerateNextTherapistId();
+        } catch (Exception e) {
+            showErrorAlert("Error loading therapist data: " + e.getMessage());
+        }
+
+
+    }
+
+    @FXML
+    void btnSaveOnAction(ActionEvent event) {
+        String id = txtID.getText().trim();
+        String name = txtName.getText().trim();
+        String contact = txtContact.getText().trim();
+        String specialization = txtSpecialization.getText().trim();
+        String programId = txtProgramID.getText().trim();
+
+        // Regex patterns
+        String idPattern = "^T\\d{3}$"; // Example: T001
+        String contactPattern = "^(\\+94|0)?\\d{9}$"; // SL format
+        String programIdPattern = "^TP\\d{3}$"; // Example: TP001
+
+        resetFieldStyles(); // Optional: to clear any old styles
+
+        if (!id.matches(idPattern)) {
+            txtID.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Therapist ID. Format should be 'Txxx'.");
+            return;
+        }
+
+        if (!contact.matches(contactPattern)) {
+            txtContact.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Contact Number.");
+            return;
+        }
+
+        if (!programId.matches(programIdPattern)) {
+            txtProgramID.setStyle("-fx-border-color: #005656;");
+            showErrorAlert("Invalid Program ID. Format should be 'TPxxx'.");
+            return;
+        }
+
+        if (id.isEmpty() || name.isEmpty() || contact.isEmpty() || specialization.isEmpty() || programId.isEmpty()) {
+            showErrorAlert("Please fill in all fields.");
+            return;
+        }
+
+        TherapistDTO therapistDTO = new TherapistDTO(id, name, contact, specialization, programId);
+        try {
+            boolean isAdded = therapistBO.addTherapist(therapistDTO);
+            if (isAdded) {
+                showSuccessAlert("Therapist saved successfully.");
+                refreshTable();
+                clearFields();
+                GenerateNextTherapistId();
+            } else {
+                showErrorAlert("Failed to save therapist.");
+            }
+        } catch (Exception e) {
+            showErrorAlert("Error: " + e.getMessage());
+        }
+    }
+
+    private void resetFieldStyles() {
+        txtID.setStyle(null);
+        txtName.setStyle(null);
+        txtContact.setStyle(null);
+        txtSpecialization.setStyle(null);
+        txtProgramID.setStyle(null);
+    }
+
+
+    @FXML
+    void btnUpdateOnAction(ActionEvent event) {
+        String id = txtID.getText();
+        String name = txtName.getText();
+        String contact = txtContact.getText();
+        String specialization = txtSpecialization.getText();
+        String programId = txtProgramID.getText();
+
+        if (id.isEmpty() || name.isEmpty() || contact.isEmpty() || specialization.isEmpty() || programId.isEmpty()) {
+            showErrorAlert("Please select a therapist to update.");
+            return;
+        }
+
+        TherapistDTO therapistDTO = new TherapistDTO(id, name, contact, specialization, programId);
+        try {
+            boolean isUpdated = therapistBO.updateTherapist(therapistDTO);
+            if (isUpdated) {
+                showSuccessAlert("Therapist updated successfully.");
+                refreshTable();
+                clearFields();
+            } else {
+                showErrorAlert("Failed to update therapist.");
+            }
+        } catch (Exception e) {
+            showErrorAlert("Error: " + e.getMessage());
+        }
+
+
+
+    }
+
+    @FXML
+    void onClickTable(MouseEvent event) {
+        TherapistTM selectedTherapist = tblTherapists.getSelectionModel().getSelectedItem();
+        if (selectedTherapist != null) {
+            txtID.setText(selectedTherapist.getId());
+            txtName.setText(selectedTherapist.getName());
+            txtContact.setText(selectedTherapist.getContactInfo());
+            txtSpecialization.setText(selectedTherapist.getSpecialization());
+            txtProgramID.setText(selectedTherapist.getTherapyProgramId());
+        }
+
+    }
+    private void clearFields() {
+        txtID.clear();
+        txtName.clear();
+        txtContact.clear();
+        txtSpecialization.clear();
+        txtProgramID.clear();
+    }
+
+    private void showSuccessAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void showErrorAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        colID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colContact.setCellValueFactory(new PropertyValueFactory<>("contactInfo"));
+        colSpecialization.setCellValueFactory(new PropertyValueFactory<>("specialization"));
+        colProgramID.setCellValueFactory(new PropertyValueFactory<>("therapyProgramId"));
+        refreshTable();
+    }
+
+    private void GenerateNextTherapistId() throws Exception {
+        String id = therapistBO.generateNextTherapistID();
+        txtID.setText(id);
+        GenerateCurrentTherapyProgramId();
+
+    }
+    private void GenerateCurrentTherapyProgramId() throws Exception {
+        String id = programBO.loadCurrentProgramID();
+        txtProgramID.setText(id);
+    }
+
+}

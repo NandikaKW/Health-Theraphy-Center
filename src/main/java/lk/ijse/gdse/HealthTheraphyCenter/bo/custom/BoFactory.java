@@ -23,7 +23,7 @@ public class BoFactory {
             case PATIENT_PROGRAM -> (T) new PatientProgramBOImpl();
             case SESSION -> (T) new SessionBOImpl();
             case PAYMENT -> (T) new PaymentBOImpl();
-
+            case QUERY -> (T) new QueryBOImpl();
         };
     }
 }

@@ -28,7 +28,7 @@
             <Font name="Times New Roman Bold" size="20.0" />
          </font>
       </TextField>
-      <PasswordField fx:id="PasswordTxt" layoutX="93.0" layoutY="281.0" prefHeight="52.0" prefWidth="310.0" promptText="Enyer Your Password">
+      <PasswordField fx:id="PasswordTxt" layoutX="93.0" layoutY="281.0" prefHeight="52.0" prefWidth="310.0" promptText="Enter  Your Password">
          <font>
             <Font name="Times New Roman Bold" size="20.0" />
          </font>
